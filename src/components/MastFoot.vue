@@ -1,5 +1,5 @@
 <template>
-  <v-footer height="auto" color="rgb(219, 214, 214, 0.3)" class="white--text">
+  <v-footer height="auto" color="rgb(219, 214, 214, 0.1)" class="white--text" app="true">
     <v-layout justify-center row wrap>
         <v-btn
             v-for="link in links"
@@ -47,7 +47,7 @@
 
 
         <v-flex py-2 text-xs-center xs12>
-            &copy;2018 — Ewen Bouquet
+            &copy;2018 — Bouquet / Devessier
         </v-flex>
     </v-layout>
   </v-footer>

@@ -4,9 +4,7 @@
       
       <mast-head/>
       
-      <p>
-        Main
-      </p>
+     
 
       <mast-foot/>
 
