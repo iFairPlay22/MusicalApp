@@ -2,17 +2,18 @@
   <v-toolbar color="rgb(219, 214, 214, 0.3)" flat scroll-off-screen app="true">
     <v-toolbar-side-icon class="white--text"></v-toolbar-side-icon>
     <v-toolbar-title class="white--text"> 
-      {{ applicationName }} 
+      {{ applicationName }}
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn
         v-for="link in links"
         :key="link"
+        to="link.page"
         class="white--text"
         flat
       >
-        {{ link }}
+        {{ link.text }}
       </v-btn>
 
       <v-layout>
@@ -103,7 +104,7 @@
       return {
         applicationName: "Musical App",
         links: [
-      'Contact us'
+      {text: "Contact us", page: "./pages/ContactUs"}
         ],
         signUpDialog: false,
         signUpSnackbar: false,

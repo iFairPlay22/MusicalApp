@@ -1,14 +1,15 @@
 <template>
-  <v-footer height="auto" color="rgb(219, 214, 214, 0.1)" class="white--text" app="true">
+  <v-footer height="auto" color="rgb(219, 214, 214, 0.1)" class="white--text" :app="true">
     <v-layout justify-center row wrap>
         <v-btn
             v-for="link in links"
-            :key="link"
+            :key="link.text"
+            to="link.page"
             class="white--text"
             flat
             round
         >
-            {{ link }}
+            {{ link.text }}
         </v-btn>
         
         <div class="text-xs-center">
@@ -60,10 +61,9 @@
     data () {
       return {
         links: [
-      'Home',
-      'About Us',
-      'Team',
-      'Contact Us'
+      {text: 'Home', page: "./"},
+      {text: 'About Us', page: "./pages/AboutUs"},
+      {text: 'Contact Us', page: "./pages/ContactUs"}
             ],
       sheet: false,
       tiles: [
