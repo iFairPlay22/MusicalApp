@@ -7,14 +7,14 @@
     >
         <v-layout justify-center row wrap>
             <v-btn
-                v-for="link in links"
-                :key="link.text"
+                v-for="({ text }, i) in links"
+                :key="i"
                 to="link.page"
                 class="white--text"
                 flat
                 round
             >
-                {{ link.text }}
+                {{ text }}
             </v-btn>
             
             <div class="text-xs-center">
