@@ -36,7 +36,7 @@
                     <v-list>
                         <v-subheader>Share in</v-subheader>
                         <v-list-tile
-                            v-for="({ title }, i) in tiles"
+                            v-for="({ title, img }, i) in tiles"
                             :key="i"
 
                             @click="sheet = false"
@@ -44,7 +44,7 @@
                             <v-list-tile-avatar>
                                 <v-avatar size="32px" tile>
                                     <img
-                                            :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${tile.img}`"
+                                            :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${ img }`"
                                             :alt="title"
                                     >
                                 </v-avatar>
