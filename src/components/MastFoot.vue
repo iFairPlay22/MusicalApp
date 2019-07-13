@@ -5,24 +5,24 @@
             color="rgb(219, 214, 214, 0.1)"
             class="white--text"
     >
-        <v-layout
-                row
-                wrap
-                justify-center
-                align-center
-        >
-            <v-btn
-                v-for="({ text }, i) in links"
-                :key="i"
-                to="link.page"
-                class="white--text"
-                flat
-                round
+        <v-layout column align-center>
+            <v-layout
+                    row
+                    wrap
+                    justify-center
+                    align-center
             >
-                {{ text }}
-            </v-btn>
-            
-            <div class="text-xs-center">
+                <v-btn
+                    v-for="({ text }, i) in links"
+                    :key="i"
+                    to="link.page"
+                    class="white--text"
+                    flat
+                    round
+                >
+                    {{ text }}
+                </v-btn>
+
                 <v-bottom-sheet v-model="sheet">
                     <template v-slot:activator>
                         <v-btn
@@ -43,8 +43,8 @@
                             <v-list-tile-avatar>
                                 <v-avatar size="32px" tile>
                                     <img
-                                    :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${tile.img}`"
-                                    :alt="tile.title"
+                                            :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${tile.img}`"
+                                            :alt="tile.title"
                                     >
                                 </v-avatar>
                             </v-list-tile-avatar>
@@ -54,35 +54,56 @@
                         </v-list-tile>
                     </v-list>
                 </v-bottom-sheet>
-            </div>
+            </v-layout>
 
-
-            <v-flex py-2 text-xs-center xs12>
-                &copy;2018 — Bouquet / Devessier
-            </v-flex>
-        </v-layoutjustify-center>
+            <p class="py-2 text-xs-center">
+                &copy;2018 — Bouquet
+            </p>
+        </v-layout>
     </v-footer>
 </template>
 
 <script>
-  
-  export default {
-    name: 'MastFoot',
-    data () {
-      return {
-        links: [
-      {text: 'Home', page: "./"},
-      {text: 'About Us', page: "./pages/AboutUs"},
-      {text: 'Contact Us', page: "./pages/ContactUs"}
-            ],
-      sheet: false,
-      tiles: [
-        { img: 'keep.png', title: 'Keep' },
-        { img: 'inbox.png', title: 'Inbox' },
-        { img: 'hangouts.png', title: 'Hangouts' },
-        { img: 'messenger.png', title: 'Messenger' }
-            ]
-      }
+
+    export default {
+        name: 'MastFoot',
+        data () {
+            return {
+                links: [
+                    {
+                        text: 'Home',
+                        page: './'
+                    },
+                    {
+                        text: 'About Us',
+                        page: './pages/AboutUs'
+                    },
+                    {
+                        text: 'Contact Us',
+                        page: './pages/ContactUs'
+                    }
+                ],
+                sheet: false,
+                tiles: [
+                    {
+                        img: 'keep.png',
+                        title: 'Keep'
+                    },
+                    {
+                        img: 'inbox.png',
+                        title: 'Inbox'
+                    },
+                    {
+                        img: 'hangouts.png',
+                        title: 'Hangouts'
+                    },
+                    {
+                        img: 'messenger.png',
+                        title: 'Messenger'
+                    }
+                ],
+            }
+        }
     }
-  }
+
 </script>
