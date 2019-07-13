@@ -7,7 +7,7 @@
       
 
       <mast-foot/>
-
+      
     </v-app>
   </div>
 </template>
