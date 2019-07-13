@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar color="rgb(219, 214, 214, 0.3)" flat scroll-off-screen app="true">
+  <v-toolbar color="rgb(219, 214, 214, 0.3)" flat scroll-off-screen app>
     <v-toolbar-side-icon class="white--text"></v-toolbar-side-icon>
     <v-toolbar-title class="white--text"> 
       {{ applicationName }}
