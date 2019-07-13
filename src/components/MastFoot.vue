@@ -24,7 +24,7 @@
                 </v-btn>
 
                 <v-bottom-sheet v-model="sheet">
-                    <template v-slot:activator>
+                    <template #activator>
                         <v-btn
                             color="rgb(233, 51, 51, 0.8)"
                             dark
