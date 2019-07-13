@@ -5,7 +5,12 @@
             color="rgb(219, 214, 214, 0.1)"
             class="white--text"
     >
-        <v-layout justify-center row wrap>
+        <v-layout
+                row
+                wrap
+                justify-center
+                align-center
+        >
             <v-btn
                 v-for="({ text }, i) in links"
                 :key="i"
@@ -55,7 +60,7 @@
             <v-flex py-2 text-xs-center xs12>
                 &copy;2018 — Bouquet / Devessier
             </v-flex>
-        </v-layout>
+        </v-layoutjustify-center>
     </v-footer>
 </template>
 
