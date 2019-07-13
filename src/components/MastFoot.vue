@@ -36,8 +36,9 @@
                     <v-list>
                         <v-subheader>Share in</v-subheader>
                         <v-list-tile
-                            v-for="tile in tiles"
-                            :key="tile.title"
+                            v-for="(tile, i) in tiles"
+                            :key="i"
+
                             @click="sheet = false"
                         >
                             <v-list-tile-avatar>
