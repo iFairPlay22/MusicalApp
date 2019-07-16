@@ -3,9 +3,7 @@
     <v-app id="content">
       
       <mast-head/>
-      
-      
-
+  
       <mast-foot/>
       
     </v-app>

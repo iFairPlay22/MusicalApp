@@ -13,9 +13,9 @@
                     align-center
             >
                 <v-btn
-                    v-for="({ text }, i) in links"
+                    v-for="({ page, text }, i) in links"
                     :key="i"
-                    :to="link.page"
+                    :to="page"
                     class="white--text"
                     flat
                     round
@@ -43,8 +43,8 @@
                             <v-list-tile-avatar>
                                 <v-avatar size="32px" tile>
                                     <img
-                                            :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${ img }`"
-                                            :alt="title"
+                                        :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${ img }`"
+                                        :alt="title"
                                     >
                                 </v-avatar>
                             </v-list-tile-avatar>

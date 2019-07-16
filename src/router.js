@@ -13,6 +13,10 @@ export default new Router({
       name: 'home',
       component: Home
     },
+    {/*Redirect*/
+      path: '/test',
+      redirect: () => '/pages/AboutUs'
+    },
     {
       path: '/about',
       name: 'about',
