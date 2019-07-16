@@ -3,7 +3,9 @@
     <v-app id="content">
       
       <mast-head/>
-  
+
+      <router-view/>
+
       <mast-foot/>
       
     </v-app>

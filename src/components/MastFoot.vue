@@ -76,11 +76,7 @@
                     },
                     {
                         text: 'About Us',
-                        page: './pages/AboutUs'
-                    },
-                    {
-                        text: 'Contact Us',
-                        page: './pages/ContactUs'
+                        page: './views/AboutUs'
                     }
                 ],
                 sheet: false,
