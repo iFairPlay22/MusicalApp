@@ -7,13 +7,13 @@
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn
-        v-for="link in links"
-        :key="link"
-        :to="link.page"
+        v-for="({ text, page }, i) in links"
+        :key="i"
+        :to="page"
         class="white--text"
         flat
       >
-        {{ link.text }}
+        {{ text }}
       </v-btn>
 
       <v-layout>
@@ -104,7 +104,10 @@
       return {
         applicationName: "Musical App",
         links: [
-      {text: "Contact us", page: "./pages/ContactUs"}
+          {
+            text: "Contact us",
+            page: "./pages/ContactUs"
+          }
         ],
         signUpDialog: false,
         signUpSnackbar: false,

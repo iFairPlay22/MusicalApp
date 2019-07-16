@@ -15,7 +15,7 @@
                 <v-btn
                     v-for="({ text }, i) in links"
                     :key="i"
-                    to="link.page"
+                    :to="link.page"
                     class="white--text"
                     flat
                     round
@@ -38,7 +38,6 @@
                         <v-list-tile
                             v-for="({ title, img }, i) in tiles"
                             :key="i"
-
                             @click="sheet = false"
                         >
                             <v-list-tile-avatar>
