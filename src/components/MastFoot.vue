@@ -4,7 +4,7 @@
         <v-btn
             v-for="link in links"
             :key="link.text"
-            to="link.page"
+            :to="link.page"
             class="white--text"
             flat
             round

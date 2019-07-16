@@ -9,7 +9,7 @@
       <v-btn
         v-for="link in links"
         :key="link"
-        to="link.page"
+        :to="link.page"
         class="white--text"
         flat
       >
