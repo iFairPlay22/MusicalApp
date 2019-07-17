@@ -76,7 +76,7 @@
                     },
                     {
                         text: 'About Us',
-                        page: './views/AboutUs'
+                        page: '/about-us'
                     }
                 ],
                 sheet: false,

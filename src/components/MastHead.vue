@@ -16,7 +16,6 @@
         {{ text }}
       </v-btn>
 
-      <v-layout>
         <v-dialog v-model="logInDialog" width="60%" persistent>
           <template v-slot:activator="{ on }">
             <v-btn class="white--text" flat v-on="on">Log In</v-btn>
@@ -44,9 +43,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-      </v-layout>
 
-      <v-layout>
         <v-dialog v-model="signUpDialog" width="60%" persistent>
           <template v-slot:activator="{ on }">
             <v-btn class="white--text" flat v-on="on">Sign up</v-btn>
@@ -77,7 +74,6 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-      </v-layout>
 
     </v-toolbar-items>
 
