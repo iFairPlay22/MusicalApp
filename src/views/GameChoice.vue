@@ -1,7 +1,7 @@
 <template>
     <v-carousel>
       <v-carousel-item
-        v-for="(imageLink, i) in items"
+        v-for="({imageLink}, i) in items"
         :key="i"
         :src="imageLink"
       >
