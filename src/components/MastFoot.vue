@@ -5,7 +5,10 @@
             color="rgb(219, 214, 214, 0.1)"
             class="white--text"
     >
-        <v-layout column align-center>
+        <v-layout 
+            column 
+            align-center
+        >
             <v-layout
                     row
                     wrap
