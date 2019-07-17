@@ -18,11 +18,18 @@ export default new Router({
       name: 'test',
       redirect: () => '/pages/AboutUs'
     },
-    {/*PageRouting*/
+    {
       path: '/about-us',
       name: 'about-us',
       component: () => import(
         './views/AboutUs.vue'
+      )
+    },
+    {
+      path: '/game-choice',
+      name: 'game-choice',
+      component: () => import(
+        './views/GameChoice.vue'
       )
     }
   ]

@@ -9,13 +9,13 @@
               v-for="({name, bio, imageLink}, i) in cardContent"
               :key="i"
           >
-            <v-card height="390px">
+            <v-card height="350px">
               <v-img
                 cover
                 class="white--text"
                 height="200px"
                 :src="imageLink"
-                alt="photo de Marc Denouel"
+                alt="cardIcon"
               >
               </v-img>
                 <v-card-title class="grey--text title ml-0 mr-0 mb-2 mt-2 pa-0 justify-center"> 
