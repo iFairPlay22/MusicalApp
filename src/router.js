@@ -31,6 +31,34 @@ export default new Router({
       component: () => import(
         './views/GameChoice.vue'
       )
+    },
+    {
+      path: '/notes-launcher',
+      name: 'notes-launcher',
+      component: () => import(
+        './views/launcher/NotesLauncher.vue'
+      )
+    },
+    {
+      path: '/rythms-launcher',
+      name: 'rythms-launcher',
+      component: () => import(
+        './views/launcher/RythmsLauncher.vue'
+      )
+    },
+    {
+      path: '/listen-launcher',
+      name: 'listen-launcher',
+      component: () => import(
+        './views/launcher/ListenLauncher.vue'
+      )
+    },
+    {
+      path: '/history-launcher',
+      name: 'history-launcher',
+      component: () => import(
+        './views/launcher/HistoryLauncher.vue'
+      )
     }
   ]
 })
