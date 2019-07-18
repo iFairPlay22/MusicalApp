@@ -60,7 +60,7 @@
             </v-layout>
 
             <p class="py-2 text-xs-center">
-                &copy;2018 — Bouquet
+                &copy;2018 — Bouquet / Devessier
             </p>
         </v-layout>
     </v-footer>

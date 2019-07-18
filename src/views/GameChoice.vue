@@ -1,13 +1,29 @@
 <template>
-    <v-carousel>
+    <v-carousel
+      height="100%"
+      hide-delimiters
+    >
       <v-carousel-item
-        v-for="({imageLink}, i) in items"
+        v-for="({title, tagLine, imageLink, page}, i) in items"
         :key="i"
         :src="imageLink"
       >
-        <h1>
-            {{ imageLink }}
-        </h1>
+        <v-card-title 
+          class="white--text display-1 justify-center mt-5 pt-5"
+        >
+          {{ title }}
+        </v-card-title>
+        <v-card-text 
+          class="white--text text-xs-center pt-0">
+          {{ tagLine }}
+        </v-card-text>
+        <v-btn 
+          color="success"
+          :to="page"
+        >
+          Play
+        </v-btn>
+
       </v-carousel-item>
     </v-carousel>
 </template>
@@ -20,16 +36,28 @@
       return {
         items: [
             {
-                imageLink: require('../assets/GameChoice/Notes.jpg')
+                title: "Notes",
+                tagLine: "Lorem ipsum dolor si amet !",
+                imageLink: require('../assets/GameChoice/Notes.jpg'),
+                page: "notes-launcher"
             },
             {
-                imageLink: require('../assets/GameChoice/Rythme.jpg')
+                title: "Rythme",
+                tagLine: "Lorem ipsum dolor si amet !",
+                imageLink: require('../assets/GameChoice/Rythme.jpg'),
+                page: "rythms-launcher"
             },
             {
-                imageLink: require('../assets/GameChoice/Ecoute.jpg')
+                title: "Ecoute",
+                tagLine: "Lorem ipsum dolor si amet !",
+                imageLink: require('../assets/GameChoice/Ecoute.jpg'),
+                page: "listen-launcher"
             },
             {
-                imageLink: require('../assets/GameChoice/Histoire.jpg')
+                title: "Histoire",
+                tagLine: "Lorem ipsum dolor si amet !",
+                imageLink: require('../assets/GameChoice/Histoire.jpg'),
+                page: "history-launcher"
             }
         ]
       }
