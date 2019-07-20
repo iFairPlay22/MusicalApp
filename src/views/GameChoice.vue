@@ -2,6 +2,7 @@
     <v-carousel
       height="100%"
       hide-delimiters
+      :interval=10000
     >
       <v-carousel-item
         v-for="({title, tagLine, imageLink, page}, i) in items"
@@ -17,13 +18,25 @@
           class="white--text text-xs-center pt-0">
           {{ tagLine }}
         </v-card-text>
-        <v-btn 
-          color="success"
-          :to="page"
+        <v-container 
+          grid-list-md
         >
-          Play
-        </v-btn>
-
+          <v-layout 
+            class="pt-5" 
+            align-center
+            justify-center
+            fill-height
+          >
+            <v-btn 
+              color="success"
+              round
+              large
+              :to="page"
+            >
+              Play
+            </v-btn>
+          </v-layout>
+        </v-container>
       </v-carousel-item>
     </v-carousel>
 </template>

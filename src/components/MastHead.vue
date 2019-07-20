@@ -1,9 +1,18 @@
 <template>
-  <v-toolbar color="rgb(219, 214, 214, 0.3)" flat scroll-off-screen app>
+  <v-toolbar 
+    color="rgb(219, 214, 214, 0.3)" 
+    flat 
+    scroll-off-screen 
+    app
+  >
     <v-toolbar-side-icon class="white--text"></v-toolbar-side-icon>
-    <v-toolbar-title class="white--text"> 
+    <v-btn 
+      class="white--text"
+      flat
+      to="/"
+    >
       {{ applicationName }}
-    </v-toolbar-title>
+    </v-btn>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn
@@ -16,9 +25,19 @@
         {{ text }}
       </v-btn>
 
-        <v-dialog v-model="logInDialog" width="60%" persistent>
+        <v-dialog 
+          v-model="logInDialog" 
+          width="60%" 
+          persistent
+        >
           <template v-slot:activator="{ on }">
-            <v-btn class="white--text" flat v-on="on">Log In</v-btn>
+            <v-btn 
+              class="white--text" 
+              flat 
+              v-on="on"
+            >
+              Log In
+            </v-btn>
           </template>
           <v-card>
             <v-card-title>

@@ -59,6 +59,76 @@ export default new Router({
       component: () => import(
         './views/launcher/HistoryLauncher.vue'
       )
+    },
+    {
+      path: '/game/theory-rythms',
+      name: 'theory-rythms',
+      component: () => import(
+        './views/launcher/theory/TheoryRythmsLauncher.vue'
+      )
+    },
+    {
+      path: '/game/practice-rythms',
+      name: 'practice-rythms',
+      component: () => import(
+        './views/launcher/practice/PracticeRythmsLauncher.vue'
+      )
+    },
+    {
+      path: '/game/theory-notes',
+      name: 'game/theory-notes',
+      component: () => import(
+        './views/launcher/theory/TheoryNotesLauncher.vue'
+      )
+    },
+    {
+      path: '/game/practice-notes',
+      name: 'game/practice-notes',
+      component: () => import(
+        './views/launcher/practice/PracticeNotesLauncher.vue'
+      )
+    },
+    {
+      path: '/game/history',
+      name: 'history-game',
+      component: () => import(
+        './views/game/HistoryGame.vue'
+      )
+    },
+    {
+      path: '/game/listen',
+      name: 'listen-game',
+      component: () => import(
+        './views/game/ListenGame.vue'
+      )
+    },
+    {
+      path: '/game/theory-notes',
+      name: 'theory-notes-game',
+      component: () => import(
+        './views/game/NotesTheoryGame.vue'
+      )
+    },
+    {
+      path: '/game/practice-notes',
+      name: 'practice-notes-game',
+      component: () => import(
+        './views/game/NotesPracticeGame.vue'
+      )
+    },
+    {
+      path: '/game/theory-rythms',
+      name: 'theory-rythms-game',
+      component: () => import(
+        './views/game/RythmsTheoryGame.vue'
+      )
+    },
+    {
+      path: '/game/practice-rythms',
+      name: 'practice-rythms-game',
+      component: () => import(
+        './views/game/NotesRythmsGame.vue'
+      )
     }
   ]
 })
