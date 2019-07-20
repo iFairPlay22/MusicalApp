@@ -31,11 +31,11 @@
         links: [
             {
                 tag: "Théorie",
-                link: "game/theory-rythms"
+                link: "launcher/theory-rythms"
             },
             {
                 tag: "Pratique",
-                link: "game/practice-rythms"
+                link: "launcher/practice-rythms"
             }
         ]
       }

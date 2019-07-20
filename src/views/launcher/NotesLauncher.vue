@@ -31,11 +31,11 @@
         links: [
             {
                 tag: "Théorie",
-                link: "game/theory-notes"
+                link: "launcher/theory-notes"
             },
             {
                 tag: "Pratique",
-                link: "game/practice-notes"
+                link: "launcher/practice-notes"
             }
         ]
       }

@@ -61,28 +61,28 @@ export default new Router({
       )
     },
     {
-      path: '/game/theory-rythms',
+      path: '/launcher/theory-rythms',
       name: 'theory-rythms',
       component: () => import(
         './views/launcher/theory/TheoryRythmsLauncher.vue'
       )
     },
     {
-      path: '/game/practice-rythms',
+      path: '/launcher/practice-rythms',
       name: 'practice-rythms',
       component: () => import(
         './views/launcher/practice/PracticeRythmsLauncher.vue'
       )
     },
     {
-      path: '/game/theory-notes',
+      path: '/launcher/theory-notes',
       name: 'game/theory-notes',
       component: () => import(
         './views/launcher/theory/TheoryNotesLauncher.vue'
       )
     },
     {
-      path: '/game/practice-notes',
+      path: '/launcher/practice-notes',
       name: 'game/practice-notes',
       component: () => import(
         './views/launcher/practice/PracticeNotesLauncher.vue'
@@ -127,7 +127,7 @@ export default new Router({
       path: '/game/practice-rythms',
       name: 'practice-rythms-game',
       component: () => import(
-        './views/game/NotesRythmsGame.vue'
+        './views/game/RythmsPracticeGame.vue'
       )
     }
   ]
