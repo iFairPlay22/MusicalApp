@@ -59,7 +59,7 @@
                 </v-bottom-sheet>
             </v-layout>
 
-            <p class="py-2 text-xs-center">
+            <p class="py-1 text-xs-center">
                 &copy;2018 — Bouquet / Devessier
             </p>
         </v-layout>
