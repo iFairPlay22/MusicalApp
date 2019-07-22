@@ -76,14 +76,14 @@ export default new Router({
     },
     {
       path: '/launcher/theory-notes',
-      name: 'game/theory-notes',
+      name: 'game-theory-notes',
       component: () => import(
         './views/launcher/theory/TheoryNotesLauncher.vue'
       )
     },
     {
       path: '/launcher/practice-notes',
-      name: 'game/practice-notes',
+      name: 'game-practice-notes',
       component: () => import(
         './views/launcher/practice/PracticeNotesLauncher.vue'
       )

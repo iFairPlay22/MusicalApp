@@ -1,18 +1,40 @@
 <template>
-    <div>
-        <v-card-title>
-            {{ questionnary[i].question }}
-        </v-card-title>
-        <v-checkbox
-            v-model="checkbox"
-            v-for="(proposition, i) in questionnary[i].propositions"
-            :key="i"
+    <div class="white--text title">
+        <v-container 
+          grid-list-md
         >
-            {{ proposition }}
-        </v-checkbox>
-        <v-btn>
-            Validate
-        </v-btn>
+          <v-layout 
+            class="pt-5" 
+            align-center
+            justify-center
+            column
+            fill-height
+          >
+            <v-card-title>
+            {{ questionnary[i].question }}
+            </v-card-title>
+            <v-flex
+                row
+                v-for="(proposition, i) in questionnary[i].propositions"
+                :key="i"
+            >
+                <v-checkbox
+                    v-model="checkbox"
+                    dark
+                    color="rgb(75, 219, 91, 0.8)"
+                    :label="proposition"
+                >
+                </v-checkbox>
+            </v-flex>
+            <v-btn 
+                round 
+                color="rgb(219, 214, 214, 0.2)" 
+                class="white--text"
+            >
+                Send
+            </v-btn>
+          </v-layout>
+        </v-container>
     </div>
 
 </template>
