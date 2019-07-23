@@ -1,13 +1,16 @@
 <template>
   <div class="home">
-    
+    <mast-foot/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+  import MastFoot from './components/MastFoot';
 
-export default {
-  name: 'home'
-}
+  export default {
+    name: 'home',
+    components: {
+      MastFoot
+    }
+  }
 </script>
