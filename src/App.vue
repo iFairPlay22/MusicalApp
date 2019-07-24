@@ -21,8 +21,7 @@
       }
     },
     components: {
-      MastHead,
-      MastFoot
+      MastHead
     }
   }
 </script>

@@ -14,7 +14,7 @@
               v-for="({name, bio, imageLink}, i) in cardContent"
               :key="i"
           >
-            <v-card> <!-- height="350px" -->
+            <v-card color="rgb(255, 255, 255, 0.95)"> <!-- height="350px" -->
               <v-img
                 cover
                 class="white--text top-image"
@@ -27,7 +27,7 @@
                 <v-card-title class="grey--text title ml-0 mr-0 mb-2 mt-2 pa-0 justify-center"> 
                   {{ name }}
                 </v-card-title>
-                <v-card-text class="pb-3 pt-0">
+                <v-card-text class="pb-3 pt-0" >
                   {{ bio }}
                 </v-card-text>
             </v-card>

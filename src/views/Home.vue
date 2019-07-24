@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import MastFoot from './components/MastFoot';
+  import MastFoot from '../components/MastFoot';
 
   export default {
     name: 'home',
