@@ -1,21 +1,27 @@
 <template>
-    <v-container grid-list-md >
-        <v-layout row align-center justify-space-between>
-          <v-flex>
-            <v-btn
-                v-for="({name, white}, i) in notes"
+    <v-container>
+        <v-layout row align-center justify-center grid-list-md class="pt-5">
+          <v-flex xs8 class="pl-5">
+            <v-btn 
+                v-for="({name}, i) in blackNotes"
                 :key="i"
-                :color="black"
+                color="transparent"
                 :value="name"
-                v-if="!white"
+                class="white--text"
             >
+                {{ name }}
+            </v-btn>
+          </v-flex>
+        </v-layout>
+        <v-layout row align-center justify-center>
+          <v-flex xs8>
             <v-btn
-                v-for="({name, white}, i) in notes"
-                :key="i"
-                :color="white"
+                v-for="({name}, j) in whiteNotes"
+                :key="j"
+                color="rgb(255,255,255,0.9)"
                 :value="name"
-                v-if="white"
             >
+                {{ name }}
             </v-btn>
           </v-flex>
         </v-layout>
@@ -23,72 +29,14 @@
 </template>
 
 <script>
+    import {blackNotes, whiteNotes} from "../files/notes.json";
+    
     export default {
         name: "KeyBoard",
         data() {
             return {
-                notes: [
-                    {
-                        name: "C",
-                        fullName: "Do",
-                        white: true
-                    },
-                    {
-                        name: "C#",
-                        fullName: "Do dièse",
-                        white: false
-                    },
-                    {
-                        name: "D",
-                        fullName: "Ré",
-                        white: true
-                    },
-                    {
-                        name: "D#",
-                        fullName: "Ré dièse",
-                        white: false
-                    },
-                    {
-                        name: "E",
-                        fullName: "Mi",
-                        white: true
-                    },
-                    {
-                        name: "F",
-                        fullName: "Fa",
-                        white: true
-                    },
-                    {
-                        name: "F#",
-                        fullName: "Fa dièse",
-                        white: false
-                    },
-                    {
-                        name: "G",
-                        fullName: "Sol",
-                        white: true
-                    },
-                    {
-                        name: "G#",
-                        fullName: "Sol dièse",
-                        white: false
-                    },
-                    {
-                        name: "A",
-                        fullName: "La",
-                        white: true
-                    },
-                    {
-                        name: "A#",
-                        fullName: "La dièse",
-                        white: false
-                    },
-                    {
-                        name: "B",
-                        fullName: "Si",
-                        white: true
-                    },
-                ]
+                blackNotes,
+                whiteNotes
             }
         }
     }
