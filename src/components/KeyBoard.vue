@@ -1,11 +1,13 @@
 <template>
     <v-container>
         <v-layout row align-center justify-center grid-list-md class="pt-5">
-          <v-flex xs8 class="pl-5">
+          <v-flex 
+            xs1
+            v-for="({name}, i) in blackNotes"
+            :key="i"
+        >
             <v-btn 
-                v-for="({name}, i) in blackNotes"
-                :key="i"
-                color="transparent"
+                color="rgb(0,0,0,0.9)"
                 :value="name"
                 class="white--text"
             >
@@ -14,10 +16,12 @@
           </v-flex>
         </v-layout>
         <v-layout row align-center justify-center>
-          <v-flex xs8>
+          <v-flex 
+            xs1
+            v-for="({name}, j) in whiteNotes"
+            :key="j"
+          >
             <v-btn
-                v-for="({name}, j) in whiteNotes"
-                :key="j"
                 color="rgb(255,255,255,0.9)"
                 :value="name"
             >
