@@ -1,8 +1,10 @@
 <template>
     <v-container 
         grid-list-md
+        class="pt-5"
       >
         <v-layout 
+            class="pt-5"
           align-center 
           fill-height
           wrap

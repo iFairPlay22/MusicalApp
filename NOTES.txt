@@ -1,0 +1,26 @@
+Jauge pour s'auto évaluer
+- Couleurs
+- Pouces
+- Etoiles
+- Smiley
+
+Repérer les erreurs et les représenter
+
+3 niveaux de notes
+- Petits intervalles (3 notes) --> 15
+- Par classe (5 notes) --> 30
++- Altérations --> 30
+
+
+Sol: CDEFGAB
+Fa: EFGABCD
+ut (4): BCDEFGA
+ut (3) : DEFGABC
+ut (1): ABCDEFG
+
+Mélange de clef
+
+Evalutation théorique
+- Une grosse image de partitions
+- Plusieurs questions sur la même page
+            Script de lecture (BDD)
