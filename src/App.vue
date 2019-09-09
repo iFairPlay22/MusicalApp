@@ -5,6 +5,8 @@
       <mast-head/>
 
       <router-view/>
+
+      <mast-foot/>
       
     </v-app>
   </div>
@@ -12,6 +14,8 @@
 
 <script>
   import MastHead from './components/MastHead';
+  import MastFoot from './components/MastFoot';
+
 
   export default {
     name: 'App',
@@ -21,7 +25,8 @@
       }
     },
     components: {
-      MastHead
+      MastHead,
+      MastFoot
     }
   }
 </script>

@@ -30,11 +30,18 @@
                     class="white--text"
                     round
                     large
-                    v-for="({text, link}, i) in buttons"
-                    :key="i"
-                    :to="link"
+                    @click="onRegame"
                 >
-                    {{ text }}
+                    Regame
+                </v-btn>
+                <v-btn
+                    color="rgb(219, 214, 214, 0.2)" 
+                    class="white--text"
+                    round
+                    large
+                    to="/game-choice"
+                >
+                    Quit
                 </v-btn>
             </v-layout>
         </v-flex>
@@ -51,17 +58,12 @@
         },
         data() {
             return {
-                buttons: 
-                [
-                    {
-                        text: "Retry",
-                        link: ""
-                    },
-                    {
-                        text: "Quit",
-                        link: ""
-                    }
-                ]
+                
+            }
+        },
+        methods: {
+            onRegame() {
+                this.$emit("regame")
             }
         }
     }

@@ -27,7 +27,7 @@
 
         <v-dialog 
           v-model="logInDialog" 
-          width="60%" 
+          width="30%" 
           persistent
         >
           <template v-slot:activator="{ on }">
@@ -63,7 +63,7 @@
           </v-card>
         </v-dialog>
 
-        <v-dialog v-model="signUpDialog" width="60%" persistent>
+        <v-dialog v-model="signUpDialog" width="30%" persistent>
           <template v-slot:activator="{ on }">
             <v-btn class="white--text" flat v-on="on">Sign up</v-btn>
           </template>

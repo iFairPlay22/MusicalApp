@@ -26,8 +26,7 @@
                     max-height="200px"
                     contain
                     class="mx-auto"
-                >
-                </v-img>
+                />
             </v-flex>
             <v-flex xs12>
                 <v-layout 
@@ -38,25 +37,43 @@
                     <v-flex 
                         xs4
                     >
-                        
                         <v-radio-group 
                             :column=false 
                             v-model="radioGroup">
                             <v-radio
-                                v-for="(proposition, i) in questionnary[i].propositions"
-                                :key="i"
-                                :value="i"
+                                v-for="({proposition, image}, j) in questionnary[i].propositions"
+                                :key="j"
+                                :value="j"
                                 color="rgb(75, 219, 91, 0.8)"
                                 dark
                             >
                                 <template 
                                     v-slot:label
                                 > 
-                                    <div 
-                                        class="white--text"
-                                    >
-                                        {{ proposition }} 
-                                    </div>
+                                    <v-item-group>
+                                        <v-item v-slot:default="{ active, toggle }" class="text-right">
+                                            <v-img
+                                                v-if="image !== undefined"
+                                                :src="image"
+                                                width="100px"
+                                                height="100px"
+                                                contain
+                                                class="mx-auto"
+                                            >
+                                                <span 
+                                                    class="white--text"
+                                                >
+                                                    {{ proposition }} 
+                                                </span>
+                                            </v-img>
+                                            <span 
+                                                v-else
+                                                class="white--text"
+                                            >
+                                                {{ proposition }} 
+                                            </span>
+                                        </v-item>
+                                    </v-item-group>
                                 </template>
                             </v-radio>
                         </v-radio-group>
@@ -84,23 +101,10 @@
 </template>
 
 <script>
-    class Questionnary {
-        [
-            {
-                question: String,
-                img: String,
-                propositions: 
-                [
-                    String
-                ],
-                answer: Number
-            }
-        ]
-    }
     export default {
         name: "Qcm",
         props: {
-            questionnary: Questionnary
+            questionnary: Array
         },
         data() {
             return {

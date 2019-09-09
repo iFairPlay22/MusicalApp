@@ -1,16 +1,15 @@
 <template>
-  <div class="home">
-    <mast-foot/>
-  </div>
+  <span class="my-auto mx-auto white--text display-2">
+      Learn music for free with MusicalApp !
+  </span>
 </template>
 
 <script>
-  import MastFoot from '../components/MastFoot';
-
+  
   export default {
     name: 'home',
     components: {
-      MastFoot
+      
     }
   }
 </script>

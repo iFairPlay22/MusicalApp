@@ -16,7 +16,7 @@ export default new Router({
     {/*Redirect*/
       path: '/test',
       name: 'test',
-      redirect: () => '/pages/AboutUs'
+      redirect: () => 'home'
     },
     {
       path: '/about-us',
@@ -30,20 +30,6 @@ export default new Router({
       name: 'game-choice',
       component: () => import(
         './views/GameChoice.vue'
-      )
-    },
-    {
-      path: '/notes-launcher',
-      name: 'notes-launcher',
-      component: () => import(
-        './views/launcher/NotesLauncher.vue'
-      )
-    },
-    {
-      path: '/rythms-launcher',
-      name: 'rythms-launcher',
-      component: () => import(
-        './views/launcher/RythmsLauncher.vue'
       )
     },
     {
@@ -61,31 +47,31 @@ export default new Router({
       )
     },
     {
-      path: '/launcher/theory-rythms',
+      path: '/theory-rythms',
       name: 'theory-rythms',
       component: () => import(
-        './views/launcher/theory/TheoryRythmsLauncher.vue'
+        './views/launcher/TheoryRythmsLauncher.vue'
       )
     },
     {
-      path: '/launcher/practice-rythms',
+      path: '/practice-rythms',
       name: 'practice-rythms',
       component: () => import(
-        './views/launcher/practice/PracticeRythmsLauncher.vue'
+        './views/launcher/PracticeRythmsLauncher.vue'
       )
     },
     {
-      path: '/launcher/theory-notes',
+      path: '/theory-notes',
       name: 'game-theory-notes',
       component: () => import(
-        './views/launcher/theory/TheoryNotesLauncher.vue'
+        './views/launcher/TheoryNotesLauncher.vue'
       )
     },
     {
-      path: '/launcher/practice-notes',
+      path: '/practice-notes',
       name: 'game-practice-notes',
       component: () => import(
-        './views/launcher/practice/PracticeNotesLauncher.vue'
+        './views/launcher/PracticeNotesLauncher.vue'
       )
     },
     {
