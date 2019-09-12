@@ -20,8 +20,8 @@
                 xs12
             >
                 <v-img
-                    v-if="questionnary[i].img !== undefined"
-                    :src="questionnary[i].img"
+                    v-if="questionnary[i].image !== undefined"
+                    :src="questionnary[i].image"
                     max-width="200px"
                     max-height="200px"
                     contain
@@ -41,9 +41,9 @@
                             :column=false 
                             v-model="radioGroup">
                             <v-radio
-                                v-for="({proposition, image}, j) in questionnary[i].propositions"
+                                v-for="({proposition, image, goodAnswer}, j) in questionnary[i].propositions"
                                 :key="j"
-                                :value="j"
+                                :value="goodAnswer"
                                 color="rgb(75, 219, 91, 0.8)"
                                 dark
                             >
@@ -97,6 +97,30 @@
                 </v-layout>
             </v-flex>
         </v-layout>
+        <v-snackbar v-model="onGoodAnswer" :multi-line="true" :timeout="2000" :top="true" color="success">
+            <span>
+                Good answer !
+            </span>
+            <v-btn color="white" flat @click="onGoodAnswer = false">
+                Close
+            </v-btn>
+        </v-snackbar>
+        <v-snackbar v-model="onBadAnswer" :multi-line="true" :timeout="2000" :top="true" color="error">
+            <span>
+                Bad answer ! It was: 
+            </span>
+            <ul
+                v-for="(answer, i) in goodAnswers"
+                :key="i"
+            >
+                <li>
+                        {{ answer }}
+                </li>
+            </ul>
+            <v-btn color="white" flat @click="onBadAnswer = false">
+                Close
+            </v-btn>
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -109,20 +133,33 @@
         data() {
             return {
                 radioGroup: -1,
-                goodAnswers: 0,
-                i: 0
+                goodAnswersNumber: 0,
+                i: 0,
+
+                goodAnswers: [],
+                onGoodAnswer: false,
+                onBadAnswer: false,
             }
             
         },
         methods: {
             onValidation() {
-                if (this.radioGroup === this.questionnary[this.i].answer) {
-                    this.goodAnswers++;
+                if (this.radioGroup) {
+                    this.goodAnswersNumber++;
+                    this.onGoodAnswer = true;
+                } else {
+                    this.goodAnswers = []
+                    this.questionnary[this.i].propositions.map(({proposition, goodAnswer}) => {
+                        if (goodAnswer) {
+                            this.goodAnswers.push(proposition)                            
+                        }
+                    })
+                    this.onBadAnswer = true;
                 }
                 if (this.i < this.questionnary.length - 1) {
                     this.i++;
                 } else {
-                    this.$emit('game-end', this.goodAnswers, this.questionnary.length);
+                    this.$emit('game-end', this.goodAnswersNumber, this.questionnary.length);
                 }
             }
         }
