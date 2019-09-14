@@ -1,23 +1,29 @@
 <template>
-  <div class="d-flex justify-space-around mb-6 my-auto">
-      <v-card v-for="({name, bio, imageLink}, i) in cardContent" :key="i" color="rgb(255, 255, 255, 0.95)" max-width="400px" min-width="300px">
-        <v-img
-          cover
-          class="white--text top-image"
-          height="200px"
-          position="top center"
-          :src="imageLink"
-          alt="cardIcon"
-        >
-        </v-img>
-          <v-card-title class="grey--text title ml-0 mr-0 mb-2 mt-2 pa-0 justify-center"> 
-            {{ name }}
-          </v-card-title>
-          <v-card-text class="pb-3 pt-0" >
-            {{ bio }}
-          </v-card-text>
-      </v-card>
-  </div>
+ <v-container grid-list-md class="container">
+    <v-layout align-center justify-center space-around column fill-height>
+        <v-card v-for="({name, title, text, imageLink}, i) in cardContent" :key="i" color="rgba(145,145,145,.3)" class="white--text mb-5">
+            <v-card-title>
+                <v-icon large left color="white">
+                    chevron_right
+                </v-icon>
+                <span class="font-weight-light headline" style="border-bottom: 1px solid white">
+                    {{ title }}
+                </span>
+            </v-card-title>
+            <v-card-text class="headline justify-center">
+                {{ text }}
+            </v-card-text>
+            <v-card-text>
+            <v-icon large left color="white">
+                account_circle
+              </v-icon>
+            <span class="title">
+                {{ name }}
+            </span>
+            </v-card-text>
+        </v-card>
+    </v-layout>
+ </v-container>
 </template>
 
 <script>
@@ -29,12 +35,14 @@
         cardContent: [
           {
             name: "Marc Denouel",
-            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.",
+            title: "MusicalApp",
+            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.",
             imageLink: require("../assets/AboutUs/MarcDenouel.jpg")
           },
           {
             name: "Ewen Bouquet",
-            bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.",
+            title: "MusicalApp",
+            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.",
             imageLink: require("../assets/AboutUs/EwenBouquet.jpg")
           }
         ]

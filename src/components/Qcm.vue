@@ -1,127 +1,78 @@
 <template>
-    <v-container 
-        grid-list-md
-      >
-        <v-layout 
-          align-center 
-          fill-height
-          wrap
-        >
-            <v-flex 
-                xs12
-            >
-                <v-card-title>
-                    <h2 class="mx-auto">
-                        {{ questionnary[i].question }}
-                    </h2>
-                </v-card-title>
-            </v-flex>
-            <v-flex 
-                xs12
-            >
-                <v-img
-                    v-if="questionnary[i].image !== undefined"
-                    :src="questionnary[i].image"
-                    max-width="200px"
-                    max-height="200px"
-                    contain
-                    class="mx-auto"
-                />
-            </v-flex>
-            <v-flex xs12>
-                <v-layout 
-                    align-center
-                    justify-center
-                    wrap
-                >
-                    <v-flex 
-                        xs4
-                    >
-                        <v-radio-group 
-                            :column=false 
-                            v-model="radioGroup">
-                            <v-radio
-                                v-for="({proposition, image, goodAnswer}, j) in questionnary[i].propositions"
-                                :key="j"
-                                :value="goodAnswer"
-                                color="rgb(75, 219, 91, 0.8)"
-                                dark
-                            >
-                                <template 
-                                    v-slot:label
-                                > 
-                                    <v-item-group>
-                                        <v-item v-slot:default="{ active, toggle }" class="text-right">
-                                            <v-img
-                                                v-if="image !== undefined"
-                                                :src="image"
-                                                width="100px"
-                                                height="100px"
-                                                contain
-                                                class="mx-auto"
-                                            >
-                                                <span 
-                                                    class="white--text"
-                                                >
-                                                    {{ proposition }} 
-                                                </span>
-                                            </v-img>
-                                            <span 
-                                                v-else
-                                                class="white--text"
-                                            >
-                                                {{ proposition }} 
-                                            </span>
-                                        </v-item>
-                                    </v-item-group>
-                                </template>
-                            </v-radio>
-                        </v-radio-group>
-                    </v-flex>
-                </v-layout>
-            </v-flex>
-            <v-flex 
-                xs12
-            >
-                <v-layout 
-                    justify-center
-                >
-                    <v-btn 
-                        round 
-                        color="rgb(219, 214, 214, 0.2)" 
-                        class="white--text"
-                        @click="onValidation"
-                    >
-                        Send
-                    </v-btn>
-                </v-layout>
-            </v-flex>
-        </v-layout>
-        <v-snackbar v-model="onGoodAnswer" :multi-line="true" :timeout="2000" :top="true" color="success">
-            <span>
-                Good answer !
+    <v-card class="transparent white--text ma-auto" min-width="200px" max-width="1000px">
+        <v-card-title>
+            <v-icon large left color="white">
+                chevron_right
+            </v-icon>
+            <span class="font-weight-light headline" style="border-bottom: 1px solid white">
+                {{ questionnary[actualQuestionIndex].question }}
             </span>
-            <v-btn color="white" flat @click="onGoodAnswer = false">
-                Close
-            </v-btn>
-        </v-snackbar>
-        <v-snackbar v-model="onBadAnswer" :multi-line="true" :timeout="2000" :top="true" color="error">
-            <span>
-                Bad answer ! It was: 
-            </span>
-            <ul
-                v-for="(answer, i) in goodAnswers"
+        </v-card-title>
+        <v-card-text>
+            <v-img
+                v-if="questionnary[actualQuestionIndex].image !== undefined && isNotEmpty(questionnary[actualQuestionIndex].image)"
+                :src="questionnary[actualQuestionIndex].image"
+                max-width="200px"
+                max-height="200px"
+                contain
+                class="mx-auto"
+            />
+        </v-card-text>
+        <div class="d-flex">
+            <v-card
+                v-for="({proposition, image}, i) in questionnary[actualQuestionIndex].propositions"
                 :key="i"
+                @click="onClick(i)"
+                class="transparent white--text ma-2"
             >
-                <li>
-                        {{ answer }}
-                </li>
-            </ul>
-            <v-btn color="white" flat @click="onBadAnswer = false">
-                Close
+                <div v-if="isSelected(i)" class="clickableItem selectedItem">
+                    <v-card-text v-if="image !== undefined && isNotEmpty(image)">
+                        <v-img
+                            :src="image"
+                            width="100px"
+                            height="100px"
+                            contain
+                            class="mx-auto"
+                        />
+                    </v-card-text>
+                    <v-card-text
+                        class="headline mx-auto"
+                    >
+                        {{ proposition }}
+                    </v-card-text>
+                </div>
+                <div v-else class="clickableItem">
+                    <v-card-text v-if="image !== undefined && isNotEmpty(image)">
+                        <v-img
+                            :src="image"
+                            width="100px"
+                            height="100px"
+                            contain
+                            class="mx-auto"
+                        />
+                    </v-card-text>
+                     <v-card-text
+                        class="headline mx-auto"
+                    >
+                        {{ proposition }}
+                    </v-card-text>
+                </div>
+            </v-card>
+        </div>
+        <v-card-actions>
+            <v-btn 
+                outlined 
+                fab 
+                class="mx-auto" 
+                color="success"
+                @click="onValidation"
+            >
+                <v-icon>
+                    done
+                </v-icon>
             </v-btn>
-        </v-snackbar>
-    </v-container>
+        </v-card-actions>
+    </v-card>
 </template>
 
 <script>
@@ -132,36 +83,98 @@
         },
         data() {
             return {
-                radioGroup: -1,
-                goodAnswersNumber: 0,
-                i: 0,
-
-                goodAnswers: [],
-                onGoodAnswer: false,
-                onBadAnswer: false,
+                actualQuestionIndex: 0,
+                nbCorrectAnswers: 0,
+                correcAnswers: [],
+                selectedAnswers: [],
             }
-            
         },
         methods: {
-            onValidation() {
-                if (this.radioGroup) {
-                    this.goodAnswersNumber++;
-                    this.onGoodAnswer = true;
-                } else {
-                    this.goodAnswers = []
-                    this.questionnary[this.i].propositions.map(({proposition, goodAnswer}) => {
-                        if (goodAnswer) {
-                            this.goodAnswers.push(proposition)                            
+            /*
+            loadImages() {
+                this.questionnary.map(question => {console.log(question)
+                    if (question.image !== undefined && this.isNotEmpty(question.image)) {
+                        question.image = require(question.image)
+                    }
+                    question.propositions.map(proposition => {
+                        if (proposition.image !== undefined && this.isNotEmpty(proposition.image)) {
+                            proposition.image = require(proposition.image)
                         }
                     })
-                    this.onBadAnswer = true;
+                })
+            },
+            */
+            isNotEmpty(element) {
+                return element.length !== 0;
+            },
+            isSelected(i) {
+                return this.selectedAnswers.includes(i)
+            },
+            isAnswerCorrect() {
+                if (this.selectedAnswers.length === 0) { 
+                    return false 
                 }
-                if (this.i < this.questionnary.length - 1) {
-                    this.i++;
+                let correct = true
+                this.correcAnswers = []
+                this.questionnary[this.actualQuestionIndex].propositions.map(({proposition, goodAnswer}, i) => {
+                    if (goodAnswer === true) {
+                        this.correcAnswers.push(proposition)                    
+                    }
+                    if ((goodAnswer === true && !this.isSelected(i)) || (goodAnswer === false && this.isSelected(i))) {
+                        correct = false
+                    }
+                })
+                return correct
+            },
+            onClick(i) {
+                if (!this.isSelected(i)) {
+                    this.selectedAnswers.push(i)
                 } else {
-                    this.$emit('game-end', this.goodAnswersNumber, this.questionnary.length);
+                    this.selectedAnswers = this.removeFromArray(this.selectedAnswers, i)
                 }
+            },
+            onValidation() {
+                if (this.selectedAnswers.length !== 0) {
+                    this.printMessage()
+                    this.selectedAnswers = []
+                    this.toNextState()
+                }
+            },
+            printMessage() {
+                    if (this.isAnswerCorrect()) {
+                        this.$toastr.success("- " + this.correcAnswers.join(", <br>- "), 'Good answer');
+                        this.nbCorrectAnswers++
+                    } else {
+                        this.$toastr.error('The good one was:<br>- ' + this.correcAnswers.join(", <br>- "), 'Bad answer');
+                    }
+            },
+            toNextState() {
+                if (this.actualQuestionIndex < this.questionnary.length - 1) {
+                    this.actualQuestionIndex++;
+                } else {
+                    this.$emit('game-end', this.nbCorrectAnswers, this.questionnary.length);
+                }
+            },
+            removeFromArray(array, element) {
+                let newArray = []
+                array.map((elmt) => {
+                    if (elmt !== element) {
+                        newArray.push(elmt)
+                    }
+                })
+                return newArray
             }
         }
     }
 </script>
+
+<style scoped>
+    .clickableItem {
+        cursor: pointer;
+    }
+
+    .clickableItem:hover, .selectedItem {
+        background-color: rgb(219, 214, 214, 0.3);
+        transition: 0.5s ease-in-out;
+    }
+</style>

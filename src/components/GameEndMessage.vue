@@ -19,7 +19,7 @@
             </v-card-title>
             <v-card-title>
                 <h3 class="mx-auto">
-                    Vous avez {{ goodAnswers }} bonnes réponses sur {{ nbQuestions }} !
+                    Vous avez {{ nbCorrectAnswers }} bonnes réponses sur {{ nbQuestions }} !
                 </h3>
             </v-card-title>
             <v-layout
@@ -53,7 +53,7 @@
     export default {
         name: "GameEndMessage",
         props: {
-            goodAnswers: Number,
+            nbCorrectAnswers: Number,
             nbQuestions: Number
         },
         data() {

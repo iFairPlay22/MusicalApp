@@ -2,7 +2,7 @@
     <v-footer
             app
             height="auto"
-            color="rgb(219, 214, 214, 0.1)"
+            color="rgb(100, 100, 100, 0.3)"
             class="white--text"
     >
         <v-layout 
@@ -20,6 +20,7 @@
                     :key="i"
                     :to="page"
                     class="white--text"
+                    
                     flat
                     round
                 >
@@ -59,8 +60,8 @@
                 </v-bottom-sheet>
             </v-layout>
 
-            <p class="py-1 text-xs-center">
-                &copy;2019 — Bouquet / Devessier
+            <p class="py-1 text-xs-center white--text">
+                &copy;2019 — Ewen Bouquet
             </p>
         </v-layout>
     </v-footer>

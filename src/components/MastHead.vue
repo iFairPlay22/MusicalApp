@@ -105,7 +105,7 @@
 
     <v-snackbar v-model="signUpSnackbar" :multi-line="true" :timeout="5000" :top="true">
       Hello {{ pseudo }}, thanks for joining us !
-      <v-btn color="rgb(233, 51, 51, 0.8)" flat @click="signUpSnackbar = false">
+      <v-btn color="rgb(233, 51, 51, 1)" flat @click="signUpSnackbar = false">
         Close
       </v-btn>
     </v-snackbar>
