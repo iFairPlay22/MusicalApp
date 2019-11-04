@@ -34,7 +34,7 @@
                 nbQuestions: 0,
                 questionnary: [{}],
                 
-                category: 6,
+                category: 1,
                 number: 10
             };
         },
