@@ -1,5 +1,3 @@
 <template>
-    <h1>
-        Practice - Rythms
-    </h1>
+  <h1>Practice - Rythms</h1>
 </template>

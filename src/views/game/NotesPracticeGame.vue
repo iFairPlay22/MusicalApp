@@ -1,23 +1,21 @@
 <template>
-    <div>
-        <music-sheet>
-        </music-sheet>
+  <div>
+    <music-sheet></music-sheet>
 
-        <key-board>
-        </key-board>
-    </div>
+    <key-board></key-board>
+  </div>
 </template>
 
 
 <script>
-    import KeyBoard from "../../components/KeyBoard";
-    import MusicSheet from "../../components/MusicSheet";
+import KeyBoard from "../../components/KeyBoard";
+import MusicSheet from "../../components/MusicSheet";
 
-    export default {
-        name: "NotesPracticeGame",
-        components: {
-            KeyBoard,
-            MusicSheet
-        }
-    }
+export default {
+  name: "NotesPracticeGame",
+  components: {
+    KeyBoard,
+    MusicSheet
+  }
+};
 </script>

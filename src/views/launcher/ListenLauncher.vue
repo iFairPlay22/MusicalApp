@@ -1,5 +1,3 @@
 <template>
-    <h1>
-        Listen
-    </h1>
+  <h1>Listen</h1>
 </template>
