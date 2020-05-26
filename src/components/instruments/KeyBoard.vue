@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { blackNotes, whiteNotes } from "../files/notes.json";
+import { blackNotes, whiteNotes } from "@/files/notes.json";
 
 export default {
   name: "KeyBoard",

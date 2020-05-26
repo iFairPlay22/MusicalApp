@@ -12,8 +12,8 @@
 
 <script>
 //https://musical-app-back.herokuapp.com/api/questionnary/answer?label=Answer2&imageLink=null&question_id=5&goodAnswer=1
-import Qcm from "../../components/Qcm";
-import GameEndMessage from "../../components/GameEndMessage";
+import Qcm from "@/components//questionnary/Qcm";
+import GameEndMessage from "@/components//questionnary/GameEndMessage";
 
 export default {
   name: "NotesTheoryGame",

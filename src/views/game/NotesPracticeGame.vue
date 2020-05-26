@@ -8,8 +8,8 @@
 
 
 <script>
-import KeyBoard from "../../components/KeyBoard";
-import MusicSheet from "../../components/MusicSheet";
+import KeyBoard from "@/components//instruments/KeyBoard";
+import MusicSheet from "@/components//instruments/MusicSheet";
 
 export default {
   name: "NotesPracticeGame",

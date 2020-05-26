@@ -61,20 +61,22 @@ export default {
     };
   },
   methods: {
-    /*
-            loadImages() {
-                this.questionnary.map(question => {console.log(question)
-                    if (question.image !== undefined && this.isNotEmpty(question.image)) {
-                        question.image = require(question.image)
-                    }
-                    question.propositions.map(proposition => {
-                        if (proposition.image !== undefined && this.isNotEmpty(proposition.image)) {
-                            proposition.image = require(proposition.image)
-                        }
-                    })
-                })
-            },
-            */
+    // loadImages() {
+    //   this.questionnary.map(question => {
+    //     console.log(question);
+    //     if (question.image !== undefined && this.isNotEmpty(question.image)) {
+    //       question.image = require(question.image);
+    //     }
+    //     question.propositions.map(proposition => {
+    //       if (
+    //         proposition.image !== undefined &&
+    //         this.isNotEmpty(proposition.image)
+    //       ) {
+    //         proposition.image = require(proposition.image);
+    //       }
+    //     });
+    //   });
+    // },
     isNotEmpty(element) {
       return element.length !== 0;
     },

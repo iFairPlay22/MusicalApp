@@ -36,14 +36,14 @@ export default {
           title: "Professeur de musique au conservatoire",
           text:
             "En tant que professeur de piano, j'ai pu créer et appliquer une methode d'apprentissage pas comme les autres. J'ai eu l'idée de créer ce site pour l'appliquer.",
-          imageLink: require("../assets/AboutUs/MarcDenouel.jpg")
+          imageLink: require("@/assets/AboutUs/MarcDenouel.jpg")
         },
         {
           name: "Ewen Bouquet",
           title: "Développeur de l'application",
           text:
             "Je suis étudiant en 2 ème année de DUT Informatique et j'ai réalisé ce site sous la demande de Marc.",
-          imageLink: require("../assets/AboutUs/EwenBouquet.jpg")
+          imageLink: require("@/assets/AboutUs/EwenBouquet.jpg")
         }
       ]
     };
