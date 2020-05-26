@@ -58,7 +58,7 @@ export default {
           this.$router.push("/game-choice");
           this.onCancel();
         },
-        `${this.pseudo} account already exists!`,
+        `${this.pseudo} can't be create!`,
         () => {}
       );
     },

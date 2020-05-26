@@ -37,18 +37,21 @@ export default {
   },
   methods: {
     fetchQuestionnary() {
-      fetch(
-        `https://cors-anywhere.herokuapp.com/musical-app-back.herokuapp.com/api/questionnary/category/?category=${this.category}&number=${this.number}`,
+      this.$request(
+        "GET",
+        "/questionnary/category",
         {
-          mode: "cors",
-          method: "GET"
-        }
-      )
-        .then(result => result.json())
-        .then(questionnary => {
+          category: this.category,
+          number: this.number
+        },
+        () => true,
+        "",
+        questionnary => {
           this.questionnary = questionnary;
-        })
-        .catch(error => alert(error));
+        },
+        "Error when loading questionnary!",
+        () => {}
+      );
     },
     onGameEnd(nbCorrectAnswers, nbQuestions) {
       this.inGame = false;

@@ -6,7 +6,7 @@ import { mutations } from "@/store.js";
 
 Vue.config.productionTip = false;
 
-const local = true;
+const local = false;
 
 Vue.prototype.$request = function(
   type,
@@ -26,12 +26,13 @@ Vue.prototype.$request = function(
     console_log(response);
     error_action(response);
 
-    mutations.addSnack({
-      color: "red",
-      text: error_message,
-      buttonText: "Ok",
-      timeout: 5000,
-    });
+    if (error_message !== "")
+      mutations.addSnack({
+        color: "red",
+        text: error_message,
+        buttonText: "Ok",
+        timeout: 5000,
+      });
 
     return {};
   }
@@ -40,12 +41,13 @@ Vue.prototype.$request = function(
     console_log(response);
     ok_action(response);
 
-    mutations.addSnack({
-      color: "green",
-      text: ok_message,
-      buttonText: "Ok",
-      timeout: 5000,
-    });
+    if (ok_message !== "")
+      mutations.addSnack({
+        color: "green",
+        text: ok_message,
+        buttonText: "Ok",
+        timeout: 5000,
+      });
 
     return response;
   }
