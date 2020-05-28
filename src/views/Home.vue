@@ -1,7 +1,10 @@
 <template>
-  <v-card flat color="transparent" height="100%" class="d-flex justify-center align-content-center">
-    <!-- style="display: flex; justify-content: center; align-content: center;" -->
-    <!-- class="d-flex justify-center align-center" -->
+  <v-card
+    flat
+    color="transparent"
+    height="100%"
+    class="d-flex justify-center align-center"
+  >
     <v-card-title class="white--text display-1">
       <span>Learn music at</span>
       <v-icon color="white">mdi-home</v-icon>
@@ -12,6 +15,6 @@
 <script>
 export default {
   name: "Home",
-  components: {}
+  components: {},
 };
 </script>

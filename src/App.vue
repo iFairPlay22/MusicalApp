@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class=".v-application">
+  <v-app id="app">
     <mast-head />
     <v-content id="background">
       <router-view />
@@ -14,7 +14,7 @@
       />
     </v-content>
     <mast-foot />
-  </div>
+  </v-app>
 </template>
 
 <script>
