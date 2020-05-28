@@ -6,25 +6,28 @@
           <h2 class="mx-auto">Fin du jeu</h2>
         </v-card-title>
         <v-card-title>
-          <h3
-            class="mx-auto"
-          >Vous avez {{ nbCorrectAnswers }} bonnes réponses sur {{ nbQuestions }} !</h3>
+          <h3 class="mx-auto">
+            Vous avez {{ nbCorrectAnswers }} bonnes réponses sur
+            {{ nbQuestions }} !
+          </h3>
         </v-card-title>
         <v-layout justify-center>
           <v-btn
             color="rgb(219, 214, 214, 0.2)"
             class="white--text"
-            round
+            icon
             large
             @click="onRegame"
-          >Regame</v-btn>
+            >Regame</v-btn
+          >
           <v-btn
             color="rgb(219, 214, 214, 0.2)"
             class="white--text"
-            round
+            icon
             large
             to="/game-choice"
-          >Quit</v-btn>
+            >Quit</v-btn
+          >
         </v-layout>
       </v-flex>
     </v-layout>
@@ -36,7 +39,7 @@ export default {
   name: "GameEndMessage",
   props: {
     nbCorrectAnswers: Number,
-    nbQuestions: Number
+    nbQuestions: Number,
   },
   data() {
     return {};
@@ -44,7 +47,7 @@ export default {
   methods: {
     onRegame() {
       this.$emit("regame");
-    }
-  }
+    },
+  },
 };
 </script>

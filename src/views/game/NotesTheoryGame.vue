@@ -1,13 +1,21 @@
 <template>
-  <div class="white--text title my-auto">
+  <v-container
+    fluid
+    style="height: 100%"
+    class="d-flex flex-column justify-center align-center"
+  >
     <qcm
       loading="true"
       v-if="inGame && questionnary"
       v-bind="{ questionnary }"
       v-on:game-end="onGameEnd"
     />
-    <game-end-message v-if="!inGame" v-bind="{ nbCorrectAnswers, nbQuestions }" @regame="regame" />
-  </div>
+    <game-end-message
+      v-if="!inGame"
+      v-bind="{ nbCorrectAnswers, nbQuestions }"
+      @regame="regame"
+    />
+  </v-container>
 </template>
 
 <script>
@@ -19,7 +27,7 @@ export default {
   name: "NotesTheoryGame",
   components: {
     Qcm,
-    GameEndMessage
+    GameEndMessage,
   },
   data() {
     return {
@@ -29,7 +37,7 @@ export default {
       questionnary: [{}],
 
       category: 1,
-      number: 10
+      number: 10,
     };
   },
   mounted() {
@@ -42,11 +50,11 @@ export default {
         "/questionnary/category",
         {
           category: this.category,
-          number: this.number
+          number: this.number,
         },
         () => true,
         "",
-        questionnary => {
+        (questionnary) => {
           this.questionnary = questionnary;
         },
         "Error when loading questionnary!",
@@ -61,7 +69,7 @@ export default {
     regame() {
       this.inGame = true;
       this.fetchQuestionnary();
-    }
-  }
+    },
+  },
 };
 </script>

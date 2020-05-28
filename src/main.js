@@ -1,12 +1,12 @@
 import Vue from "vue";
-import "./plugins/vuetify";
 import App from "./App.vue";
+import vuetify from "./plugins/vuetify";
 import router from "./router";
 import { mutations } from "@/store.js";
 
 Vue.config.productionTip = false;
 
-const local = false;
+const local = true;
 
 Vue.prototype.$request = function(
   type,
@@ -19,7 +19,7 @@ Vue.prototype.$request = function(
   error_action
 ) {
   function console_log(response) {
-    console.log(type + " => " + url.href, response);
+    if (local) console.log(type + " => " + url.href, response);
   }
 
   function requestError(response) {
@@ -74,7 +74,4 @@ Vue.prototype.$request = function(
     .catch(() => requestError());
 };
 
-new Vue({
-  router,
-  render: (h) => h(App),
-}).$mount("#app");
+new Vue({ router, vuetify, render: (h) => h(App) }).$mount("#app");

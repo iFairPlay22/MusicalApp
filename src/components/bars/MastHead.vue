@@ -1,20 +1,29 @@
 <template>
-  <v-toolbar color="rgb(219, 214, 214, 0.3)" flat scroll-off-screen app>
-    <v-toolbar-side-icon class="white--text"></v-toolbar-side-icon>
-    <v-btn class="white--text" flat to="/">Musical App</v-btn>
+  <v-app-bar app absolute dense dark color="rgb(0, 0, 0, 1)">
+    <v-toolbar-items>
+      <v-btn class="white--text" text @click="redirect('/')">Musical App</v-btn>
+    </v-toolbar-items>
     <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-sm-and-down">
+    <v-toolbar-items>
       <v-btn
         v-for="({ text, page }, i) in links"
         :key="i"
-        :to="page"
+        @click="redirect(page)"
         class="white--text"
-        flat
-      >{{ text }}</v-btn>
-      <LogIn />
-      <SignUp />
+        text
+        >{{ text }}</v-btn
+      >
+
+      <v-btn class="white--text" text @click="login = true">Log In</v-btn>
+      <div data-app>
+        <LogIn @cancel="login = false" :active="login" />
+      </div>
+      <v-btn class="white--text" text @click="signup = true">Sign up</v-btn>
+      <div data-app>
+        <SignUp @cancel="signup = false" :active="signup" />
+      </div>
     </v-toolbar-items>
-  </v-toolbar>
+  </v-app-bar>
 </template>
 
 <script>
@@ -25,17 +34,24 @@ export default {
   name: "MastHead",
   components: {
     SignUp,
-    LogIn
+    LogIn,
   },
   data() {
     return {
+      login: false,
+      signup: false,
       links: [
         {
           text: "About Us",
-          page: "/about-us"
-        }
-      ]
+          page: "/about-us",
+        },
+      ],
     };
-  }
+  },
+  methods: {
+    redirect(link) {
+      this.$router.push(link);
+    },
+  },
 };
 </script>

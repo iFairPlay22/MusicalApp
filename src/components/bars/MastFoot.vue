@@ -1,77 +1,61 @@
 <template>
-  <v-footer app height="auto" color="rgb(100, 100, 100, 0.3)" class="white--text">
-    <v-layout column align-center>
-      <v-layout row wrap justify-center align-center>
+  <v-bottom-navigation
+    app
+    absolute
+    dense
+    dark
+    style="background-color:black"
+    class="green white--text"
+  >
+    <div class="d-flex flex-column align-center justify-space-between">
+      <div
+        class="d-flex flex-row flew-wrap justify-center align-center"
+        style="padding-top: 5px; padding-bottom: 3px"
+      >
         <v-btn
           v-for="({ page, text }, i) in links"
           :key="i"
-          :to="page"
-          class="white--text"
-          flat
-          round
-        >{{ text }}</v-btn>
+          @click="redirect(page)"
+          text
+          icon
+          >{{ text }}</v-btn
+        >
+        <v-btn text icon dark @click="share = true">Share</v-btn>
+        <Share @cancel="share = false" v-if="share" />
+      </div>
 
-        <v-bottom-sheet v-model="sheet">
-          <template #activator>
-            <v-btn color="rgb(233, 51, 51, 0.8)" dark round>Share</v-btn>
-          </template>
-          <v-list>
-            <v-subheader>Share in</v-subheader>
-            <v-list-tile v-for="({ title, img }, i) in tiles" :key="i" @click="sheet = false">
-              <v-list-tile-avatar>
-                <v-avatar size="32px" tile>
-                  <img
-                    :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${ img }`"
-                    :alt="title"
-                  />
-                </v-avatar>
-              </v-list-tile-avatar>
-              <v-list-tile-title>{{ title }}</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-bottom-sheet>
-      </v-layout>
-
-      <p class="py-1 text-xs-center white--text">&copy;2019 — Ewen Bouquet</p>
-    </v-layout>
-  </v-footer>
+      <p style="text-align: center;">
+        &copy;2019 — Ewen Bouquet
+      </p>
+    </div>
+  </v-bottom-navigation>
 </template>
 
 <script>
+import Share from "./sharing/Share";
+
 export default {
   name: "MastFoot",
+  components: { Share },
   data() {
     return {
       links: [
         {
           text: "Home",
-          page: "./"
+          page: "./",
         },
         {
           text: "About Us",
-          page: "/about-us"
-        }
+          page: "/about-us",
+        },
       ],
-      sheet: false,
-      tiles: [
-        {
-          img: "keep.png",
-          title: "Keep"
-        },
-        {
-          img: "inbox.png",
-          title: "Inbox"
-        },
-        {
-          img: "hangouts.png",
-          title: "Hangouts"
-        },
-        {
-          img: "messenger.png",
-          title: "Messenger"
-        }
-      ]
+      share: false,
     };
-  }
+  },
+  methods: {
+    redirect(link) {
+      this.$router.push(link);
+    },
+  },
 };
 </script>

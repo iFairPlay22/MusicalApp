@@ -1,7 +1,7 @@
 <template>
   <v-carousel height="100%" hide-delimiters :interval="10000">
     <v-carousel-item
-      v-for="({mainTitle, tagLine, imageLink, choices}, i) in items"
+      v-for="({ mainTitle, tagLine, imageLink, choices }, i) in items"
       :key="i"
       :src="imageLink"
     >
@@ -9,22 +9,27 @@
         height="90%"
         class="d-flex flex-row justify-center align-center white--text"
         color="transparent"
-        flat
+        text
       >
         <v-card color="transparent" flat>
-          <v-card-text class="display-1 text-xs-center">{{ mainTitle }}</v-card-text>
+          <v-card-text class="display-1 text-xs-center">{{
+            mainTitle
+          }}</v-card-text>
           <v-card-text class="text-xs-center">{{ tagLine }}</v-card-text>
-          <v-card-actions class="d-flex flex-row justify-center align-center white--text">
+          <v-card-actions
+            class="d-flex flex-row justify-center align-center white--text"
+          >
             <v-btn
               style="max-width: 150px"
               text
-              v-for="({title, page}, i) in choices"
+              v-for="({ title, page }, i) in choices"
               :key="i"
               color="success"
-              round
+              icon
               large
               :to="page"
-            >{{ title }}</v-btn>
+              >{{ title }}</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-card>
@@ -45,13 +50,13 @@ export default {
           choices: [
             {
               title: "Theory",
-              page: "theory-notes"
+              page: "theory-notes",
             },
             {
               title: "Practice",
-              page: "practice-notes"
-            }
-          ]
+              page: "practice-notes",
+            },
+          ],
         },
         {
           mainTitle: "Rythme",
@@ -60,13 +65,13 @@ export default {
           choices: [
             {
               title: "Theory",
-              page: "theory-rythms"
+              page: "theory-rythms",
             },
             {
               title: "Practice",
-              page: "practice-rythms"
-            }
-          ]
+              page: "practice-rythms",
+            },
+          ],
         },
         {
           mainTitle: "Ecoute",
@@ -75,9 +80,9 @@ export default {
           choices: [
             {
               title: "Play",
-              page: "listen-launcher"
-            }
-          ]
+              page: "listen-launcher",
+            },
+          ],
         },
         {
           mainTitle: "Histoire",
@@ -86,12 +91,12 @@ export default {
           choices: [
             {
               title: "Play",
-              page: "history-launcher"
-            }
-          ]
-        }
-      ]
+              page: "history-launcher",
+            },
+          ],
+        },
+      ],
     };
-  }
+  },
 };
 </script>

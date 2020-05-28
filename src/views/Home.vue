@@ -1,10 +1,20 @@
 <template>
-  <span class="mx-auto my-auto white--text display-2">Learn music for free with MusicalApp !</span>
+  <v-card
+    flat
+    color="transparent"
+    height="100%"
+    style="display: flex; justify-content: center; align-content: center;"
+  >
+    <!-- class="d-flex justify-center align-center" -->
+    <v-card-title class="white--text display-1">
+      <span>Learn music at</span> <v-icon color="white">mdi-home</v-icon>
+    </v-card-title>
+  </v-card>
 </template>
 
 <script>
 export default {
-  name: "home",
-  components: {}
+  name: "Home",
+  components: {},
 };
 </script>
