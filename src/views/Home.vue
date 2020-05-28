@@ -3,9 +3,8 @@
     flat
     color="transparent"
     height="100%"
-    style="display: flex; justify-content: center; align-content: center;"
+    class="d-flex justify-center align-center"
   >
-    <!-- class="d-flex justify-center align-center" -->
     <v-card-title class="white--text display-1">
       <span>Learn music at</span> <v-icon color="white">mdi-home</v-icon>
     </v-card-title>
