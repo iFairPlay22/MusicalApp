@@ -39,7 +39,7 @@ Vue.prototype.$request = function(
   }
 
   function requestOk(response) {
-    console_log(response);
+    // console_log(response);
     ok_action(response);
 
     if (ok_message !== "")

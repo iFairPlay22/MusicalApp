@@ -1,5 +1,5 @@
 <template>
-  <v-dialog width="30%" persistent v-model="active">
+  <v-dialog width="400px" persistent v-model="active">
     <v-card>
       <v-card-title>
         <span class="headline">Log In</span>
@@ -26,24 +26,35 @@
 </template>
 
 <script>
+import json from "@/assets/.password.json";
+import { mutations } from "@/store.js";
+
+const USER = json["user"];
+const PASSWORD = json["password"];
+
 export default {
   name: "Login",
   props: ["active"],
   data() {
     return {
       pseudo: "",
-      password: ""
+      password: "",
     };
   },
   methods: {
     onLogIn() {
-      if (this.pseudo == "root" && this.password == "root")
+      if (this.pseudo == USER && this.password == PASSWORD) {
+        mutations.connect();
         this.$router.push("/questionnary-manager");
+      }
+
       this.onCancel();
     },
     onCancel() {
+      this.pseudo = "";
+      this.password = "";
       this.$emit("cancel");
-    }
-  }
+    },
+  },
 };
 </script>

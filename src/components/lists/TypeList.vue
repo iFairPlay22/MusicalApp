@@ -26,7 +26,6 @@ export default {
   name: "TypeList",
   props: ["title", "items", "selectedItem", "parentId", "level", "k", "v"],
   data() {
-    console.log(this.k, this.v, this.items);
     return {};
   },
   methods: {

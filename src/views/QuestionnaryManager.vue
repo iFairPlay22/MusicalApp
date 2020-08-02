@@ -5,7 +5,7 @@
     flat
     color="transparent"
   >
-    <v-card class="px-8 py-4" flat color="white">
+    <v-card class="px-8 py-4 ma-5" flat color="white">
       <p class="text-center display-1 black--text">Sélection</p>
       <TypeList
         v-for="({title, name, nameId, data, item}, i) in hierarchy"
@@ -34,28 +34,28 @@
       @created="refresh"
     ></TypeCreation>
 
-    <!-- <TypeEditor
+    <TypeEditor
       v-if="create === false"
       :level="hierarchy[selectedLevel]"
       :parentId="selectedLevel === 0 ? null : hierarchy[selectedLevel - 1].item"
-      :data="hierarchy[selectedLevel].data[hierarchy[selectedLevel].item]"
+      :data="getSelectedValue(hierarchy[selectedLevel].data, hierarchy[selectedLevel].nameId, hierarchy[selectedLevel].item)"
       @edited="refresh"
-      @deleted="refresh"
-    ></TypeEditor>-->
+      @deleted="updateAndRefresh"
+    ></TypeEditor>
   </v-card>
 </template>
 
 <script>
 import TypeList from "@/components/lists/TypeList";
 import TypeCreation from "@/components/editors/TypeCreation";
-// import TypeEditor from "@/components/editors/TypeEditor";
+import TypeEditor from "@/components/editors/TypeEditor";
 
 export default {
   name: "GameChoice",
   components: {
     TypeList,
     TypeCreation,
-    // TypeEditor
+    TypeEditor,
   },
   data() {
     return {
@@ -167,6 +167,8 @@ export default {
         this.hierarchy[i].item = undefined;
 
       this.refresh();
+
+      this.selectedLevel = k;
       this.create = false;
     },
     onCreation(level) {
@@ -177,6 +179,13 @@ export default {
       this.fetchModules();
       const n = this.hierarchy.filter((e) => e.item !== undefined).length + 1;
       for (let i = 1; i <= n; i++) this.fetch(i);
+    },
+    updateAndRefresh() {
+      this.fetchModules();
+      for (let i = 1; i < this.hierarchy.length; i++)
+        this.hierarchy[i].item = undefined;
+      this.selectedLevel = 0;
+      this.create = undefined;
     },
     getSelectedValue(data, nameId, item) {
       for (let el of data) if (el[nameId] == item) return el;

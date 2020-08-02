@@ -6,6 +6,7 @@ import Vue from "vue";
 
 export const globals = Vue.observable({
   snacks: [],
+  connected: false,
 });
 
 // ######################################################################################################################### //
@@ -14,6 +15,7 @@ export const globals = Vue.observable({
 
 export const getters = {
   snacks: () => globals.snacks,
+  isConnected: () => globals.connected,
 };
 
 // ######################################################################################################################### //
@@ -26,6 +28,7 @@ export const mutations = {
   },
   removeSnack: (val) =>
     (globals.snacks = globals.snacks.filter((value) => value != val)),
+  connect: () => (globals.connected = true),
 };
 
 // ######################################################################################################################### //

@@ -36,9 +36,15 @@ export default {
   data() {
     return {
       dialog: false,
-      inputName: this.data[this.level.name],
+      inputName: "",
       inputBoolean: false,
     };
+  },
+  watch: {
+    data(newVal) {
+      this.inputName =
+        newVal === undefined ? undefined : newVal[this.level.name].slice();
+    },
   },
   methods: {
     onModify() {
@@ -49,11 +55,11 @@ export default {
       if (this.parentId !== null) params[this.level.before] = this.parentId;
 
       this.$request(
-        "POST",
-        this.level.url,
+        "PUT",
+        this.level.url + "/" + this.data[this.level.nameId],
         params,
         () => true,
-        "Item created!",
+        "Item modified!",
         () => {
           this.$emit("edited");
         },
@@ -64,7 +70,18 @@ export default {
 
     onDelete(valid) {
       if (valid) {
-        alert("ok");
+        this.$request(
+          "DELETE",
+          this.level.url + "/" + this.data[this.level.nameId],
+          {},
+          () => true,
+          "Item deleted!",
+          () => {
+            this.$emit("deleted");
+          },
+          "An error occured!",
+          () => {}
+        );
       }
       this.dialog = false;
     },

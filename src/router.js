@@ -2,10 +2,11 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "@/views/Home.vue";
 import QuestionnaryManager from "@/views/QuestionnaryManager.vue";
+import { getters } from "@/store.js";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -18,6 +19,9 @@ export default new Router({
       path: "/questionnary-manager",
       name: "manager",
       component: QuestionnaryManager,
+      meta: {
+        mustBeAuthenticated: true,
+      },
     },
     {
       /*Redirect*/
@@ -27,3 +31,13 @@ export default new Router({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.mustBeAuthenticated === true && !getters.isConnected()) {
+    next("/");
+    return;
+  }
+  next();
+});
+
+export default router;
