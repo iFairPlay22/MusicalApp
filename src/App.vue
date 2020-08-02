@@ -31,39 +31,38 @@ export default {
   components: {
     MastHead,
     MastFoot,
-    MessageSnackbar,
+    MessageSnackbar
   },
 
   computed: {
-    ...getters,
+    ...getters
   },
 
   methods: {
     ...mutations,
     onSnackClose(i) {
       this.removeSnack(this.snacks[i]);
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style>
 #background {
-  background: url("./assets/background.jpg");
-
+  /* background: url("./assets/background.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+  height: 100vh; */
 
-  height: 100vh;
-  /* background-image: linear-gradient( */
-  /* to right top, */
-  /* #051937, */
-  /* #444964, */
-  /* #808195, */
-  /* #bfbec8, */
-  /* #ffffff */
-  /* ) !important; */
+  background-image: linear-gradient(
+    to right top,
+    #051937,
+    #444964,
+    #808195,
+    #bfbec8,
+    #ffffff
+  ) !important;
 }
 </style>

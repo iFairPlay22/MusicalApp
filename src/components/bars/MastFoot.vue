@@ -1,12 +1,5 @@
 <template>
-  <v-bottom-navigation
-    app
-    absolute
-    dense
-    dark
-    style="background-color:black"
-    class="green white--text"
-  >
+  <v-bottom-navigation app absolute dense dark class="transparent white--text">
     <div class="d-flex flex-column align-center justify-space-between">
       <div
         class="d-flex flex-row flew-wrap justify-center align-center"
@@ -18,25 +11,17 @@
           @click="redirect(page)"
           text
           icon
-          >{{ text }}</v-btn
-        >
-        <v-btn text icon dark @click="share = true">Share</v-btn>
-        <Share @cancel="share = false" v-if="share" />
+        >{{ text }}</v-btn>
       </div>
 
-      <p style="text-align: center;">
-        &copy;2019 — Ewen Bouquet
-      </p>
+      <p style="text-align: center;">&copy;2020 — Ewen Bouquet</p>
     </div>
   </v-bottom-navigation>
 </template>
 
 <script>
-import Share from "./sharing/Share";
-
 export default {
   name: "MastFoot",
-  components: { Share },
   data() {
     return {
       links: [
@@ -49,7 +34,6 @@ export default {
           page: "/about-us",
         },
       ],
-      share: false,
     };
   },
   methods: {

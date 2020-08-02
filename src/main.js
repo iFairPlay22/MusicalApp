@@ -23,6 +23,7 @@ Vue.prototype.$request = function(
   }
 
   function requestError(response) {
+    console.log(response);
     console_log(response);
     error_action(response);
 
@@ -68,7 +69,7 @@ Vue.prototype.$request = function(
       response.ok
         ? response
             .json()
-            .then((json) => (test(json) ? requestOk(json) : requestError()))
+            .then((json) => (test(json) ? requestOk(json) : requestError(json)))
         : requestError(response)
     )
     .catch(() => requestError());
