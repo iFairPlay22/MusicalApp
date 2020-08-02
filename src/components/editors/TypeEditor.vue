@@ -2,6 +2,7 @@
   <v-card class="px-8 py-4" flat color="white">
     <p class="text-center display-1 black--text">Edition</p>
     <v-card-subtitle>Type : {{level.title}}</v-card-subtitle>
+    <v-checkbox v-if="level.requireBoolean" v-model="inputBoolean" label="Good answer"></v-checkbox>
     <v-text-field v-model="inputName" :value="data[level.name]"></v-text-field>
     <v-card-actions>
       <v-spacer />
@@ -36,10 +37,30 @@ export default {
     return {
       dialog: false,
       inputName: this.data[this.level.name],
+      inputBoolean: false,
     };
   },
   methods: {
-    onModify() {},
+    onModify() {
+      let params = { label: this.inputName, imageLink: "null" };
+
+      if (this.level.requireBoolean)
+        params["goodAnswer"] = this.inputBoolean ? 1 : 0;
+      if (this.parentId !== null) params[this.level.before] = this.parentId;
+
+      this.$request(
+        "POST",
+        this.level.url,
+        params,
+        () => true,
+        "Item created!",
+        () => {
+          this.$emit("edited");
+        },
+        "An error occured!",
+        () => {}
+      );
+    },
 
     onDelete(valid) {
       if (valid) {

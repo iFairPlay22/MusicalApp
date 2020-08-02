@@ -8,11 +8,19 @@
     <v-card class="px-8 py-4" flat color="white">
       <p class="text-center display-1 black--text">Sélection</p>
       <TypeList
-        v-for="({title, name, data}, i) in hierarchy"
+        v-for="({title, name, nameId, data, item}, i) in hierarchy"
         :key="i"
         :title="title"
-        :items="data.map((e) => e[name])"
-        :level="hierarchy[actualLevel]"
+        :items="data.map((e) => {
+          let obj = {};
+          obj[name] = e[name];
+          obj[nameId] = e[nameId]
+          return obj;
+          })"
+        :k="name"
+        :v="nameId"
+        :selectedItem="item"
+        :level="hierarchy[i]"
         :parentId="i === 0 ? null : hierarchy[i - 1].item"
         @selection="onSelection"
         @creation="onCreation"
@@ -20,37 +28,38 @@
     </v-card>
 
     <TypeCreation
-      v-if="create"
+      v-if="create === true"
       :level="hierarchy[selectedLevel]"
       :parentId="selectedLevel === 0 ? null : hierarchy[selectedLevel - 1].item"
       @created="refresh"
     ></TypeCreation>
 
-    <!-- <TypeEditor v-else
-        :level="hierarchy[actualLevel]"
-        :data="hierarchy[actualLevel].data[hierarchy[actualLevel].item]"
-        :parentId="actualLevel === 0 ? null : hierarchy[actualLevel - 1].item"
+    <!-- <TypeEditor
+      v-if="create === false"
+      :level="hierarchy[selectedLevel]"
+      :parentId="selectedLevel === 0 ? null : hierarchy[selectedLevel - 1].item"
+      :data="hierarchy[selectedLevel].data[hierarchy[selectedLevel].item]"
+      @edited="refresh"
+      @deleted="refresh"
     ></TypeEditor>-->
   </v-card>
 </template>
 
 <script>
 import TypeList from "@/components/lists/TypeList";
-
 import TypeCreation from "@/components/editors/TypeCreation";
 // import TypeEditor from "@/components/editors/TypeEditor";
 
 export default {
   name: "GameChoice",
-  components: { TypeList, TypeCreation /*TypeEditor*/ },
-  computed: {
-    actualLevel() {
-      return this.hierarchy.filter((e) => e.item !== undefined).length - 1;
-    },
+  components: {
+    TypeList,
+    TypeCreation,
+    // TypeEditor
   },
   data() {
     return {
-      create: false,
+      create: undefined,
       selectedLevel: 0,
       hierarchy: [
         {
@@ -58,6 +67,7 @@ export default {
           url: "/questionnary/module",
           urlId: "module",
           name: "moduleName",
+          nameId: "moduleId",
           before: "",
           next: "categories",
           data: [],
@@ -68,6 +78,7 @@ export default {
           url: "/questionnary/category",
           urlId: "category",
           name: "categoryName",
+          nameId: "categoryId",
           before: "module_id",
           next: "levels",
           data: [],
@@ -78,6 +89,7 @@ export default {
           url: "/questionnary/level",
           urlId: "level",
           name: "levelName",
+          nameId: "levelId",
           before: "category_id",
           next: "questions",
           data: [],
@@ -88,6 +100,7 @@ export default {
           url: "/questionnary/question",
           urlId: "question",
           name: "question",
+          nameId: "questionId",
           before: "level_id",
           next: "propositions",
           data: [],
@@ -98,6 +111,7 @@ export default {
           url: "/questionnary/answer",
           urlId: "answer",
           name: "proposition",
+          nameId: "answerId",
           before: "question_id",
           next: "",
           data: [],
@@ -126,7 +140,7 @@ export default {
       );
     },
     fetch(i) {
-      if (i == 0 || i == this.hierarchy.length) return;
+      if (i <= 0 || this.hierarchy.length - 1 < i) return;
 
       if (this.hierarchy[i - 1].item === undefined) {
         this.hierarchy[i - 1].data = [];
@@ -147,11 +161,9 @@ export default {
       );
     },
     onSelection(k, v) {
-      this.hierarchy[k].item = this.hierarchy[k].data[v][
-        this.hierarchy[k].urlId + "Id"
-      ];
+      this.hierarchy[k].item = v;
 
-      for (let i = this.hierarchy + 1; i < this.hierarchy.length; i++)
+      for (let i = k + 1; i < this.hierarchy.length; i++)
         this.hierarchy[i].item = undefined;
 
       this.refresh();
@@ -163,7 +175,11 @@ export default {
     },
     refresh() {
       this.fetchModules();
-      for (let i = 1; i <= this.actualLevel + 1; i++) this.fetch(i);
+      const n = this.hierarchy.filter((e) => e.item !== undefined).length + 1;
+      for (let i = 1; i <= n; i++) this.fetch(i);
+    },
+    getSelectedValue(data, nameId, item) {
+      for (let el of data) if (el[nameId] == item) return el;
     },
   },
 };
