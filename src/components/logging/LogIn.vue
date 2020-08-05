@@ -26,11 +26,7 @@
 </template>
 
 <script>
-import json from "@/assets/.password.json";
 import { mutations } from "@/store.js";
-
-const USER = json["user"];
-const PASSWORD = json["password"];
 
 export default {
   name: "Login",
@@ -43,18 +39,32 @@ export default {
   },
   methods: {
     onLogIn() {
-      if (this.pseudo == USER && this.password == PASSWORD) {
-        mutations.connect();
-        this.$router.push("/questionnary-manager");
-      }
-
-      this.onCancel();
+      this.$request(
+        "GET",
+        "/users/admin",
+        {
+          pseudo: this.pseudo,
+          password: this.password,
+        },
+        (val) => val === true,
+        "",
+        () => {
+          this.connect();
+          this.$router.push("/questionnary-manager");
+          this.onCancel();
+        },
+        "Wrong pseudo or password!",
+        () => {
+          this.onCancel();
+        }
+      );
     },
     onCancel() {
       this.pseudo = "";
       this.password = "";
       this.$emit("cancel");
     },
+    ...mutations,
   },
 };
 </script>

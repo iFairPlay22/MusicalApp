@@ -19,7 +19,3 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
-
-# Password file
-
-/src/assets/.password.json

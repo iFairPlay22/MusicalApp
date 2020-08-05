@@ -29,6 +29,7 @@ export const mutations = {
   removeSnack: (val) =>
     (globals.snacks = globals.snacks.filter((value) => value != val)),
   connect: () => (globals.connected = true),
+  disconnect: () => (globals.connected = false),
 };
 
 // ######################################################################################################################### //
