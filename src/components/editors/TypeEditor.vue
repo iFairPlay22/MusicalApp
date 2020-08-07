@@ -44,6 +44,8 @@ export default {
     data(newVal) {
       this.inputName =
         newVal === undefined ? undefined : newVal[this.level.name].slice();
+      this.inputBoolean =
+        newVal === undefined ? undefined : newVal["goodAnswer"];
     },
   },
   methods: {

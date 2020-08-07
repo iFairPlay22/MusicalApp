@@ -1,6 +1,6 @@
 <template>
   <v-dialog width="400px" persistent v-model="active">
-    <v-card>
+    <v-card :loading="loading">
       <v-card-title>
         <span class="headline">Log In</span>
       </v-card-title>
@@ -32,13 +32,12 @@ export default {
   name: "Login",
   props: ["active"],
   data() {
-    return {
-      pseudo: "",
-      password: "",
-    };
+    return { loading: false, pseudo: "", password: "" };
   },
   methods: {
     onLogIn() {
+      this.loading = true;
+
       this.$request(
         "GET",
         "/users/admin",
@@ -50,12 +49,14 @@ export default {
         "",
         () => {
           this.connect();
+          this.loading = false;
           this.$router.push("/questionnary-manager").catch(() => {});
           this.onCancel();
         },
         "Wrong pseudo or password!",
         () => {
-          this.onCancel();
+          this.loading = false;
+          this.password = "";
         }
       );
     },

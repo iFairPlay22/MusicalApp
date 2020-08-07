@@ -8,7 +8,7 @@
     <v-card class="px-8 py-4 ma-5" flat color="white">
       <p class="text-center display-1 black--text">Sélection</p>
       <TypeList
-        v-for="({title, name, nameId, data, item}, i) in hierarchy"
+        v-for="({title, name, nameId, data, item, loading}, i) in hierarchy"
         :key="i"
         :title="title"
         :items="data.map((e) => {
@@ -22,6 +22,7 @@
         :selectedItem="item"
         :level="hierarchy[i]"
         :parentId="i === 0 ? null : hierarchy[i - 1].item"
+        :loading="loading"
         @selection="onSelection"
         @creation="onCreation"
       />
@@ -72,6 +73,7 @@ export default {
           next: "categories",
           data: [],
           item: undefined,
+          loading: false,
         },
         {
           title: "Catégories",
@@ -83,6 +85,7 @@ export default {
           next: "levels",
           data: [],
           item: undefined,
+          loading: false,
         },
         {
           title: "Niveaux",
@@ -94,6 +97,7 @@ export default {
           next: "questions",
           data: [],
           item: undefined,
+          loading: false,
         },
         {
           title: "Questions",
@@ -105,6 +109,7 @@ export default {
           next: "propositions",
           data: [],
           item: undefined,
+          loading: false,
         },
         {
           title: "Réponses",
@@ -117,6 +122,7 @@ export default {
           data: [],
           item: undefined,
           requireBoolean: true,
+          loading: false,
         },
       ],
     };
@@ -126,6 +132,8 @@ export default {
   },
   methods: {
     fetchModules() {
+      this.hierarchy[0].loading = true;
+
       this.$request(
         "GET",
         this.hierarchy[0].url,
@@ -134,9 +142,12 @@ export default {
         "",
         (data) => {
           this.hierarchy[0].data = data.data;
+          this.hierarchy[0].loading = false;
         },
         "An error occured!",
-        () => {}
+        () => {
+          this.hierarchy[0].loading = false;
+        }
       );
     },
     fetch(i) {
@@ -147,6 +158,8 @@ export default {
         return;
       }
 
+      this.hierarchy[i].loading = true;
+
       this.$request(
         "GET",
         this.hierarchy[i - 1].url + "/" + this.hierarchy[i - 1].item,
@@ -155,9 +168,12 @@ export default {
         "",
         (data) => {
           this.hierarchy[i].data = data.data[this.hierarchy[i - 1].next];
+          this.hierarchy[i].loading = false;
         },
         "An error occured!",
-        () => {}
+        () => {
+          this.hierarchy[i].loading = false;
+        }
       );
     },
     onSelection(k, v) {

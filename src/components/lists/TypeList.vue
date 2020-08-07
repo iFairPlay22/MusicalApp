@@ -7,6 +7,7 @@
       :item-text="k"
       :item-value="v"
       @change="onSelection"
+      :loading="loading"
     ></v-select>
     <v-btn
       icon
@@ -24,7 +25,16 @@
 <script>
 export default {
   name: "TypeList",
-  props: ["title", "items", "selectedItem", "parentId", "level", "k", "v"],
+  props: [
+    "title",
+    "items",
+    "selectedItem",
+    "parentId",
+    "level",
+    "k",
+    "v",
+    "loading",
+  ],
   data() {
     return {};
   },
