@@ -50,7 +50,7 @@ export default {
         "",
         () => {
           this.connect();
-          this.$router.push("/questionnary-manager");
+          this.$router.push("/questionnary-manager").catch(() => {});
           this.onCancel();
         },
         "Wrong pseudo or password!",

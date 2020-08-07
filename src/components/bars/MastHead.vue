@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     redirect(link) {
-      this.$router.push(link);
+      this.$router.push(link).catch(() => {});
     },
     openDialog() {
       this.login = true;

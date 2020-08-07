@@ -6,7 +6,7 @@ import { mutations } from "@/store.js";
 
 Vue.config.productionTip = false;
 
-const local = false;
+const local = true;
 
 Vue.prototype.$request = function(
   type,
@@ -23,7 +23,6 @@ Vue.prototype.$request = function(
   }
 
   function requestError(response) {
-    console.log(response);
     console_log(response);
     error_action(response);
 
@@ -64,6 +63,9 @@ Vue.prototype.$request = function(
   fetch(url, {
     mode: "cors",
     method: type,
+    headers: {
+      "Restrict-Access": "28f4e41e3ab4abfd1e87c9232591e1db0aef8db8",
+    },
   })
     .then((response) =>
       response.ok
