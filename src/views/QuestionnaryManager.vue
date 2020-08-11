@@ -193,8 +193,14 @@ export default {
     },
     refresh() {
       this.fetchModules();
-      const n = this.hierarchy.filter((e) => e.item !== undefined).length + 1;
-      for (let i = 1; i <= n; i++) this.fetch(i);
+      const n = this.hierarchy.filter((e) => e.item !== undefined).length;
+      for (let i = 1; i < this.hierarchy.length; i++) {
+        if (i <= n) {
+          this.fetch(i);
+        } else {
+          this.hierarchy[i].data = [];
+        }
+      }
     },
     updateAndRefresh() {
       this.fetchModules();
