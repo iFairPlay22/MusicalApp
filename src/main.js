@@ -4,14 +4,15 @@ import vuetify from "./plugins/vuetify";
 import router from "./router";
 import { mutations } from "@/store.js";
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = true;
 
-const local = false;
+const local = true;
 
 Vue.prototype.$request = function(
   type,
   url,
   params,
+  data,
   test,
   ok_message,
   ok_action,
@@ -52,20 +53,31 @@ Vue.prototype.$request = function(
     return response;
   }
 
-  url = new URL(
-    (local
-      ? "http://127.0.0.1:8000/api"
-      : "https://cors-anywhere.herokuapp.com/musical-app-back.herokuapp.com/api") +
-      url
-  );
+  const backendUrl = url.slice(0, 4) != "http";
+
+  if (backendUrl) {
+    url =
+      (local
+        ? "http://127.0.0.1:8000/api"
+        : "https://cors-anywhere.herokuapp.com/musical-app-back.herokuapp.com/api") +
+      url;
+  }
+
+  url = new URL(url);
   url.search = new URLSearchParams(params).toString();
 
   fetch(url, {
     mode: "cors",
     method: type,
-    headers: {
-      "Restrict-Access": "e980f5d67e1bb62e84e559f60f8154ae8c831cbd",
-    },
+    headers: backendUrl
+      ? {
+          "Restrict-Access": "e980f5d67e1bb62e84e559f60f8154ae8c831cbd",
+        }
+      : {},
+    body:
+      Object.keys(data).length === 0 && data.constructor === Object
+        ? null
+        : data,
   })
     .then((response) =>
       response.ok

@@ -60,6 +60,7 @@ export default {
         "PUT",
         this.level.url + "/" + this.data[this.level.nameId],
         params,
+        {},
         () => true,
         "Item modified!",
         () => {
@@ -75,6 +76,7 @@ export default {
         this.$request(
           "DELETE",
           this.level.url + "/" + this.data[this.level.nameId],
+          {},
           {},
           () => true,
           "Item deleted!",

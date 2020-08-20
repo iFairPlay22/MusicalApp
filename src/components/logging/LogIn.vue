@@ -45,6 +45,7 @@ export default {
           pseudo: this.pseudo,
           password: this.password,
         },
+        {},
         (val) => val === true,
         "",
         () => {
