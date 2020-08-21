@@ -8,15 +8,17 @@
     <v-card class="px-8 py-4 ma-5" flat color="white">
       <p class="text-center display-1 black--text">Sélection</p>
       <TypeList
-        v-for="({title, name, nameId, data, item, loading}, i) in hierarchy"
+        v-for="({ title, name, nameId, data, item, loading }, i) in hierarchy"
         :key="i"
         :title="title"
-        :items="data.map((e) => {
-          let obj = {};
-          obj[name] = e[name];
-          obj[nameId] = e[nameId]
-          return obj;
-          })"
+        :items="
+          data.map((e) => {
+            let obj = {};
+            obj[name] = e[name];
+            obj[nameId] = e[nameId];
+            return obj;
+          })
+        "
         :k="name"
         :v="nameId"
         :selectedItem="item"
@@ -39,9 +41,15 @@
       v-if="create === false"
       :level="hierarchy[selectedLevel]"
       :parentId="selectedLevel === 0 ? null : hierarchy[selectedLevel - 1].item"
-      :data="getSelectedValue(hierarchy[selectedLevel].data, hierarchy[selectedLevel].nameId, hierarchy[selectedLevel].item)"
+      :data="
+        getSelectedValue(
+          hierarchy[selectedLevel].data,
+          hierarchy[selectedLevel].nameId,
+          hierarchy[selectedLevel].item
+        )
+      "
       @edited="refresh"
-      @deleted="updateAndRefresh"
+      @deleted="afterDelete"
     ></TypeEditor>
   </v-card>
 </template>
@@ -152,7 +160,7 @@ export default {
       );
     },
     fetch(i) {
-      if (i <= 0 || this.hierarchy.length - 1 < i) return;
+      if (i <= 0 || this.hierarchy.length <= i) return;
 
       if (this.hierarchy[i - 1].item === undefined) {
         this.hierarchy[i - 1].data = [];
@@ -196,6 +204,7 @@ export default {
     refresh() {
       this.fetchModules();
       const n = this.hierarchy.filter((e) => e.item !== undefined).length;
+
       for (let i = 1; i < this.hierarchy.length; i++) {
         if (i <= n) {
           this.fetch(i);
@@ -204,12 +213,10 @@ export default {
         }
       }
     },
-    updateAndRefresh() {
-      this.fetchModules();
-      for (let i = 1; i < this.hierarchy.length; i++)
-        this.hierarchy[i].item = undefined;
-      this.selectedLevel = 0;
-      this.create = undefined;
+    afterDelete() {
+      const n = this.hierarchy.filter((e) => e.item !== undefined).length - 1;
+      this.hierarchy[n].item = undefined;
+      this.refresh();
     },
     getSelectedValue(data, nameId, item) {
       for (let el of data) if (el[nameId] == item) return el;
