@@ -7,7 +7,7 @@ import { mutations } from "@/store.js";
 
 Vue.config.productionTip = true;
 
-const local = true;
+const local = false;
 
 Vue.prototype.$request = function(
   type,
