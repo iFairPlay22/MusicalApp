@@ -216,6 +216,7 @@ export default {
     afterDelete() {
       const n = this.hierarchy.filter((e) => e.item !== undefined).length - 1;
       this.hierarchy[n].item = undefined;
+      this.create = true;
       this.refresh();
     },
     getSelectedValue(data, nameId, item) {

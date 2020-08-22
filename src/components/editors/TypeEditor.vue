@@ -4,11 +4,7 @@
     <v-card-subtitle>Type : {{ level.title }}</v-card-subtitle>
 
     <div v-if="level.requireBoolean">
-      <v-checkbox
-        v-if="level.requireBoolean"
-        v-model="inputBoolean"
-        label="Good answer"
-      ></v-checkbox>
+      <v-checkbox v-if="level.requireBoolean" v-model="inputBoolean" label="Good answer"></v-checkbox>
       <div class="d-flex justify-space-between align-center">
         <v-file-input
           v-model="inputFile"
@@ -17,14 +13,7 @@
           accept="image/*"
           label="File input"
         ></v-file-input>
-        <v-btn
-          icon
-          color="black"
-          outlined
-          :disabled="fileId == ''"
-          @click="openUrl"
-          class="ml-5"
-        >
+        <v-btn icon color="black" outlined :disabled="fileId == ''" @click="openUrl" class="ml-5">
           <v-icon>mdi-eye</v-icon>
         </v-btn>
       </div>
@@ -43,17 +32,11 @@
           </v-btn>
         </template>
         <v-card>
-          <v-card-title class="headline"
-            >Voulez vous supprimer cet élément ?</v-card-title
-          >
+          <v-card-title class="headline">Voulez vous supprimer cet élément ?</v-card-title>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="green darken-1" text @click="onDelete(true)"
-              >Oui</v-btn
-            >
-            <v-btn color="green darken-1" text @click="onDelete(false)"
-              >Non</v-btn
-            >
+            <v-btn color="green darken-1" text @click="onDelete(true)">Oui</v-btn>
+            <v-btn color="green darken-1" text @click="onDelete(false)">Non</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
