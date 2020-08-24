@@ -3,18 +3,18 @@
     <p class="text-center display-1 black--text">Création</p>
 
     <v-card-subtitle>Type : {{ level.title }}</v-card-subtitle>
-    <div v-if="level.requireBoolean">
-      <v-checkbox v-model="inputBoolean" label="Good answer"></v-checkbox>
-      <v-file-input
-        v-model="inputFile"
-        color="black"
-        :multiple="false"
-        accept="image/*"
-        label="File input"
-      ></v-file-input>
-    </div>
+
+    <v-checkbox v-if="level.requireBoolean" v-model="inputBoolean" label="Good answer"></v-checkbox>
+    <v-file-input
+      v-if="level.requireImage"
+      v-model="inputFile"
+      color="black"
+      :multiple="false"
+      accept="image/*"
+      label="File input"
+    ></v-file-input>
     <div class="d-flex justify-space-around align-center">
-      <v-text-field v-model="inputName" placeholder="Label"></v-text-field>
+      <v-text-field v-model="inputName" placeholder="Item name"></v-text-field>
       <v-card-actions>
         <v-spacer />
         <v-btn

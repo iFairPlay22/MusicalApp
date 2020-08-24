@@ -117,6 +117,7 @@ export default {
           next: "propositions",
           data: [],
           item: undefined,
+          requireImage: true,
           loading: false,
         },
         {
@@ -130,6 +131,7 @@ export default {
           data: [],
           item: undefined,
           requireBoolean: true,
+          requireImage: true,
           loading: false,
         },
       ],
