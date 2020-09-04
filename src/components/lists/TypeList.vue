@@ -15,7 +15,7 @@
       outlined
       @click="onCreate"
       class="ml-5"
-      :disabled="parentId === undefined"
+      :disabled="parentId === undefined || this.level.max <= this.level.data.length"
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>

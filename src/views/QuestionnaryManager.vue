@@ -82,6 +82,7 @@ export default {
           data: [],
           item: undefined,
           loading: false,
+          lengthLimit: 15,
         },
         {
           title: "Catégories",
@@ -94,6 +95,7 @@ export default {
           data: [],
           item: undefined,
           loading: false,
+          lengthLimit: 15,
         },
         {
           title: "Niveaux",
@@ -106,6 +108,7 @@ export default {
           data: [],
           item: undefined,
           loading: false,
+          lengthLimit: 15,
         },
         {
           title: "Questions",
@@ -119,6 +122,7 @@ export default {
           item: undefined,
           requireImage: true,
           loading: false,
+          lengthLimit: 75,
         },
         {
           title: "Réponses",
@@ -133,6 +137,8 @@ export default {
           requireBoolean: true,
           requireImage: true,
           loading: false,
+          lengthLimit: 20,
+          max: 4,
         },
       ],
     };

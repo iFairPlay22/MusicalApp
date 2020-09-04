@@ -17,14 +17,7 @@
       <v-text-field v-model="inputName" placeholder="Item name"></v-text-field>
       <v-card-actions>
         <v-spacer />
-        <v-btn
-          class="ml-5"
-          icon
-          color="green"
-          outlined
-          @click="onCreate"
-          :disabled="inputName == ''"
-        >
+        <v-btn class="ml-5" icon color="green" outlined @click="onCreate" :disabled="!isValid">
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </v-card-actions>
@@ -39,12 +32,29 @@ export default {
   props: ["level", "parentId"],
   data() {
     return {
+      isValid: false,
       inputName: "",
       inputBoolean: false,
       inputFile: null,
     };
   },
+  watch: {
+    inputName(newVal) {
+      if (
+        newVal &&
+        0 < newVal.length &&
+        newVal.length < this.level.lengthLimit
+      ) {
+        this.updateFormState(true);
+        return;
+      }
+      this.updateFormState(false);
+    },
+  },
   methods: {
+    updateFormState(b) {
+      this.isValid = b;
+    },
     savePictureAndQuestion() {
       let reader = new FileReader();
       reader.addEventListener("load", () => {

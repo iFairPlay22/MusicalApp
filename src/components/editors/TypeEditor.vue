@@ -2,29 +2,25 @@
   <v-card class="px-8 py-4" flat color="white">
     <p class="text-center display-1 black--text">Edition</p>
     <v-card-subtitle>Type : {{ level.title }}</v-card-subtitle>
-    <v-checkbox v-if="level.requireBoolean" v-model="inputBoolean" label="Good answer"></v-checkbox>
-    <div v-if="level.requireImage" class="d-flex justify-space-between align-center">
-      <v-file-input
-        v-model="inputFile"
-        color="black"
-        :multiple="false"
-        accept="image/*"
-        label="File input"
-      ></v-file-input>
-      <v-btn icon color="black" outlined :disabled="fileId == ''" @click="openUrl" class="ml-5">
-        <v-icon>mdi-eye</v-icon>
-      </v-btn>
-    </div>
+    <v-form v-model="isValid">
+      <v-checkbox v-if="level.requireBoolean" v-model="inputBoolean" label="Good answer"></v-checkbox>
+      <div v-if="level.requireImage" class="d-flex justify-space-between align-center">
+        <v-file-input color="black" :multiple="false" accept="image/*" label="File input"></v-file-input>
+        <v-btn icon color="black" outlined :disabled="fileId == ''" @click="openUrl" class="ml-5">
+          <v-icon>mdi-eye</v-icon>
+        </v-btn>
+      </div>
+    </v-form>
     <v-text-field placeholder="Item name" v-model="inputName" :value="data[level.name]"></v-text-field>
     <v-card-actions>
       <v-spacer />
       <v-dialog v-model="dialog" persistent width="450px">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" icon color="red" outlined>
+          <v-btn :disabled="!isValid" v-bind="attrs" v-on="on" icon color="red" outlined>
             <v-icon>mdi-delete</v-icon>
           </v-btn>
 
-          <v-btn icon color="orange" outlined @click="onModify">
+          <v-btn :disabled="!isValid" icon color="orange" outlined @click="onModify">
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
         </template>
@@ -48,6 +44,7 @@ export default {
   props: ["level", "parentId", "data"],
   data() {
     return {
+      isValid: false,
       dialog: false,
       inputName: "",
       inputBoolean: false,
@@ -68,8 +65,22 @@ export default {
       }
       this.inputFile = null;
     },
+    inputName(newVal) {
+      if (
+        newVal &&
+        0 < newVal.length &&
+        newVal.length < this.level.lengthLimit
+      ) {
+        this.updateFormState(true);
+        return;
+      }
+      this.updateFormState(false);
+    },
   },
   methods: {
+    updateFormState(b) {
+      this.isValid = b;
+    },
     destroyPictureAndCallback(callback) {
       if (this.fileId == "") return callback();
 
