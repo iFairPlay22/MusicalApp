@@ -4,9 +4,9 @@ import vuetify from "./plugins/vuetify";
 import router from "./router";
 
 import { mutations } from "@/store.js";
-import { env } from "@/prod.js";
+import { prodEnv, apiUrl } from "@/prod.js";
 
-Vue.config.productionTip = env.inProduction();
+Vue.config.productionTip = prodEnv;
 
 Vue.prototype.$request = function(
   type,
@@ -20,7 +20,7 @@ Vue.prototype.$request = function(
   error_action
 ) {
   function console_log(response) {
-    if (!env.inProduction()) console.log(type + " => " + url.href, response);
+    if (!prodEnv) console.log(type + " => " + url.href, response);
   }
 
   function requestError(response) {
@@ -56,7 +56,7 @@ Vue.prototype.$request = function(
   const backendUrl = url.slice(0, 4) != "http";
 
   if (backendUrl) {
-    url = env.getApiUrl() + url;
+    url = apiUrl + url;
   }
 
   url = new URL(url);
