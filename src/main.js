@@ -5,9 +5,9 @@ import router from "./router";
 
 import { mutations } from "@/store.js";
 
-Vue.config.productionTip = true;
+Vue.config.productionTip = process.env.NODE_ENV !== "development";
 
-const local = !true;
+const local = !Vue.config.productionTip;
 
 Vue.prototype.$request = function(
   type,
