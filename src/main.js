@@ -4,10 +4,9 @@ import vuetify from "./plugins/vuetify";
 import router from "./router";
 
 import { mutations } from "@/store.js";
+import { env } from "@/prod.js";
 
-Vue.config.productionTip = process.env.NODE_ENV !== "development";
-
-const local = !Vue.config.productionTip;
+Vue.config.productionTip = env.inProduction();
 
 Vue.prototype.$request = function(
   type,
@@ -21,7 +20,7 @@ Vue.prototype.$request = function(
   error_action
 ) {
   function console_log(response) {
-    if (local) console.log(type + " => " + url.href, response);
+    if (!env.inProduction()) console.log(type + " => " + url.href, response);
   }
 
   function requestError(response) {
@@ -57,11 +56,7 @@ Vue.prototype.$request = function(
   const backendUrl = url.slice(0, 4) != "http";
 
   if (backendUrl) {
-    url =
-      (local
-        ? "http://127.0.0.1:8000/api"
-        : "https://cors-anywhere.herokuapp.com/musical-app-back.herokuapp.com/api") +
-      url;
+    url = env.getApiUrl() + url;
   }
 
   url = new URL(url);
