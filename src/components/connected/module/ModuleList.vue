@@ -66,9 +66,6 @@ export default {
     onClick(moduleId) {
       this.$router.push(`/questionnary-manager/${moduleId}`);
     },
-    onCreate() {
-      this.$emit("createMode");
-    },
     onDelete(moduleId) {
       this.$emit("loading");
       this.$request(
@@ -87,8 +84,11 @@ export default {
         }
       );
     },
+    onCreate() {
+      this.$emit("createMode");
+    },
     onUpdate(moduleId) {
-      this.$emitg("updateMode", this.module[moduleId]);
+      this.$emit("updateMode", this.modules[moduleId]);
     },
   },
 };
