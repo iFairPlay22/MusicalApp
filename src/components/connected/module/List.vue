@@ -2,7 +2,11 @@
   <v-list two-line color="transparent">
     <div>
       <v-subheader class="display-1 my-5">
-        {{ data.displayName }}
+        <v-btn icon color="black" outlined @click="goBack">
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
+        <span class="ml-5">{{ data.displayName }}</span>
+
         <v-spacer />
         <v-btn
           :disabled="data.max && items.length < data.max"
@@ -151,6 +155,9 @@ export default {
         bool: this.items[i].bool,
         file: this.items[i].file,
       });
+    },
+    goBack() {
+      this.$router.go(1);
     },
   },
 };
