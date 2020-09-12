@@ -54,23 +54,43 @@ export default {
   data() {
     return {
       isValid: false,
-      inputName: this.data.name,
+      inputName: this.data.name.slice(),
       inputFile: null,
-      inputBool: false,
+      inputBool: this.data.bool,
     };
   },
   watch: {
+    data(newVal) {
+      this.isValid = false;
+      this.inputFile = null;
+      if (!newVal) {
+        this.inputName = newVal.name.slice();
+        this.inputBool = newVal.bool;
+      } else {
+        this.inputName = "";
+        this.inputBool = false;
+      }
+    },
     inputName(newVal) {
       if (
         newVal &&
         0 < newVal.length &&
         newVal.length < this.data.lengthLimit &&
-        (newVal != this.data.name || this.inputFile.length != 0)
+        (newVal != this.data.name ||
+          (this.data.requireFile &&
+            this.inputFile &&
+            this.inputFile.length != 0) ||
+          (this.data.requireBool &&
+            this.inputBool !== null &&
+            this.inputBool != this.data.bool))
       ) {
         this.updateFormState(true);
         return;
       }
       this.updateFormState(false);
+    },
+    inputBool(newVal) {
+      if (newVal != this.data.bool) this.updateFormState(true);
     },
     inputFile() {
       this.updateFormState(true);
@@ -98,7 +118,7 @@ export default {
         label: this.inputName,
       };
 
-      if (this.data.requireBool) params.goodAnswer = false;
+      if (this.data.requireBool) params.goodAnswer = this.inputBool ? 1 : 0;
       if (this.data.requireFile) params.imageLink = fileName;
       if (this.data.beforeId)
         params[`${this.data.beforeType}_id`] = this.data.beforeId;
@@ -109,7 +129,7 @@ export default {
         params,
         {},
         () => true,
-        `L'élement "${this.data.type}" a été modifié !`,
+        `L'élement "${this.data.displayName.toLowerCase()}" a été modifié !`,
         () => {
           this.$emit("edited");
         },

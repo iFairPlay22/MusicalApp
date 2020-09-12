@@ -99,8 +99,8 @@ export default {
         () => true,
         "",
         (response) => {
+          console.log(response);
           this.items = response.data[this.data.nextTypeName].map((e) => {
-            console.log(e);
             return {
               id: e[`${this.data.type}Id`],
               name: e[`${this.data.labelName}`],
@@ -131,7 +131,7 @@ export default {
         {},
         {},
         () => true,
-        `L'élement "${this.data.type}" a été supprimé !`,
+        `L'élement "${this.data.displayName.toLowerCase()}" a été supprimé !`,
         () => {
           this.fetchItems();
         },

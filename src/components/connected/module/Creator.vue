@@ -53,12 +53,26 @@ export default {
       if (
         newVal &&
         0 < newVal.length &&
-        newVal.length < this.data.lengthLimit
+        newVal.length < this.data.lengthLimit &&
+        (!this.data.requireFile ||
+          (this.data.requireFile &&
+            this.inputFile &&
+            this.inputFile.length != 0)) &&
+        (!this.data.requireBool ||
+          (this.data.requireBool &&
+            this.inputBool !== null &&
+            this.inputBool != this.data.bool))
       ) {
         this.updateFormState(true);
         return;
       }
       this.updateFormState(false);
+    },
+    inputBool(newVal) {
+      if (newVal != this.data.bool) this.updateFormState(true);
+    },
+    inputFile() {
+      this.updateFormState(true);
     },
   },
   methods: {
@@ -78,7 +92,7 @@ export default {
         label: this.inputName,
       };
 
-      if (this.data.requireBool) params.goodAnswer = false;
+      if (this.data.requireBool) params.goodAnswer = this.inputBool ? 1 : 0;
       if (this.data.requireFile) params.imageLink = fileName;
       if (this.data.beforeId)
         params[`${this.data.beforeType}_id`] = this.data.beforeId;
@@ -89,7 +103,7 @@ export default {
         params,
         {},
         () => true,
-        `L'élement "${this.data.type}" a été créé !`,
+        `L'élement "${this.data.displayName.toLowerCase()}" a été créé !`,
         () => {
           this.$emit("created");
         },

@@ -16,24 +16,8 @@ const router = new Router({
       component: Home,
     },
     {
-      path: "/questionnary-manager",
-      name: "module-manager",
-      component: NewQuestionnaryManager,
-      meta: {
-        mustBeAuthenticated: true,
-      },
-    },
-    {
-      path: "/questionnary-manager/:moduleId",
-      name: "category-manager",
-      component: NewQuestionnaryManager,
-      meta: {
-        mustBeAuthenticated: true,
-      },
-    },
-    {
-      path: "/questionnary-manager/:moduleId/:categoryId",
-      name: "level-manager",
+      path: "/questionnary-manager/:moduleId/:categoryId/:levelId/:questionId",
+      name: "answer-manager",
       component: NewQuestionnaryManager,
       meta: {
         mustBeAuthenticated: true,
@@ -48,13 +32,30 @@ const router = new Router({
       },
     },
     {
-      path: "/questionnary-manager/:moduleId/:categoryId/:levelId:/:questionId",
-      name: "answer-manager",
+      path: "/questionnary-manager/:moduleId/:categoryId",
+      name: "level-manager",
       component: NewQuestionnaryManager,
       meta: {
         mustBeAuthenticated: true,
       },
     },
+    {
+      path: "/questionnary-manager/:moduleId",
+      name: "category-manager",
+      component: NewQuestionnaryManager,
+      meta: {
+        mustBeAuthenticated: true,
+      },
+    },
+    {
+      path: "/questionnary-manager",
+      name: "module-manager",
+      component: NewQuestionnaryManager,
+      meta: {
+        mustBeAuthenticated: true,
+      },
+    },
+
     {
       /*Redirect*/
       path: "*",

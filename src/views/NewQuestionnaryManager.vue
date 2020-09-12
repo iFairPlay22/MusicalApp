@@ -55,7 +55,7 @@ const TYPE_HIERARCHY_DATA = [
   },
   {
     displayName: "Questions",
-    next: "answers",
+    next: "propositions",
     label: "question",
     requireBool: false,
     requireFile: true,
@@ -64,7 +64,7 @@ const TYPE_HIERARCHY_DATA = [
   {
     displayName: "Réponses",
     next: null,
-    label: "answer",
+    label: "proposition",
     requireBool: true,
     requireFile: true,
     lengthLimit: 20,
@@ -119,14 +119,15 @@ export default {
       this.typeData.beforeType = TYPE_HIERARCHY[lastEl.i];
       this.typeData.nextTypeName = TYPE_HIERARCHY_DATA[lastEl.i].next;
       this.typeData.beforeId = lastEl.id;
-
-      console.log(this.typeData);
     },
     initTypeData() {
       return {
         type: TYPE_HIERARCHY[0],
         beforeType: null,
         nextTypeName: TYPE_HIERARCHY_DATA[0].next,
+        requireFile: TYPE_HIERARCHY_DATA[0].requireFile,
+        requireBool: TYPE_HIERARCHY_DATA[0].requireBool,
+        lengthLimit: TYPE_HIERARCHY_DATA[0].lengthLimit,
         labelName: TYPE_HIERARCHY_DATA[0].label,
         displayName: TYPE_HIERARCHY_DATA[0].displayName,
         id: null,
