@@ -20,7 +20,7 @@
             <v-list-item-title>{{ moduleName }}</v-list-item-title>
           </v-list-item-content>
 
-          <ItemActions @update="onUpdate(moduleId)" @delete="onDelete(moduleId)" />
+          <ItemActions @update="onUpdate(i)" @delete="onDelete(moduleId)" />
         </v-list-item>
       </template>
     </v-list-item-group>
@@ -57,7 +57,7 @@ export default {
           this.modules = response.data;
           this.$emit("loaded");
         },
-        "An error occured!",
+        "Une erreur est survenue !",
         (e) => {
           console.log(e);
         }
@@ -74,11 +74,11 @@ export default {
         {},
         {},
         () => true,
-        "Item deleted!",
+        "Le module a été supprimé !",
         () => {
           this.fetchModules();
         },
-        "An error occured!",
+        "Une erreur est survenue !",
         (e) => {
           console.log(e);
         }
@@ -87,8 +87,11 @@ export default {
     onCreate() {
       this.$emit("createMode");
     },
-    onUpdate(moduleId) {
-      this.$emit("updateMode", this.modules[moduleId]);
+    onUpdate(i) {
+      this.$emit("updateMode", {
+        id: this.modules[i].moduleId,
+        name: this.modules[i].moduleName,
+      });
     },
   },
 };

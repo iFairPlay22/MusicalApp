@@ -10,12 +10,12 @@
       <ModuleList
         v-if="state == 'select'"
         @createMode="switchState('create')"
-        @updateMode="switchState('update')"
+        @updateMode="switchState('update', $event)"
         @loading="loading=true"
         @loaded="loading=false"
       />
-      <ModuleEditor v-else-if="state == 'update'" />
-      <ModuleCreator v-else />
+      <ModuleEditor v-else-if="state == 'update'" :data="typeData" @cancel="switchState('select')" />
+      <ModuleCreator v-else @cancel="switchState('select')" />
     </v-card>
   </v-card>
 </template>
@@ -32,11 +32,13 @@ export default {
     return {
       loading: false,
       state: "select",
+      typeData: { id: -1, name: "", file: {}, bool: false },
     };
   },
   methods: {
-    switchState(state) {
+    switchState(state, data) {
       this.state = state;
+      if (data) this.typeData = data;
     },
   },
 };
