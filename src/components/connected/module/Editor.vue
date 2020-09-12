@@ -13,7 +13,7 @@
       <v-text-field v-model="inputName" :placeholder="data.name"></v-text-field>
       <v-card-actions>
         <v-spacer />
-        <v-btn class="ml-5" icon color="green" outlined @click="createModule" :disabled="!isValid">
+        <v-btn class="ml-5" icon color="green" outlined @click="update" :disabled="!isValid">
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </v-card-actions>
@@ -23,10 +23,12 @@
 
 <script>
 export default {
-  name: "ModuleCreator",
+  name: "Editor",
   props: {
     data: Object,
     // data: {
+    //   id: Number,
+    //   name: String,
     //   type: String,
     //   file: Boolean,
     //   bool: Boolean,
@@ -35,12 +37,17 @@ export default {
   data() {
     return {
       isValid: false,
-      inputName: "",
+      inputName: this.data.name,
     };
   },
   watch: {
     inputName(newVal) {
-      if (newVal && 0 < newVal.length && newVal.length < 15) {
+      if (
+        newVal &&
+        0 < newVal.length &&
+        newVal.length < 15 &&
+        newVal != this.data.name
+      ) {
         this.updateFormState(true);
         return;
       }
@@ -54,16 +61,18 @@ export default {
     cancel() {
       this.$emit("cancel");
     },
-    createModule() {
+    update() {
       this.$request(
-        "POST",
-        `/questionnary/${this.data.type}`,
-        { label: this.inputName },
+        "PUT",
+        `/questionnary/${this.data.type}/${this.data.id}`,
+        {
+          label: this.inputName,
+        },
         {},
         () => true,
-        `Le ${this.data.type} a été crééé !`,
+        `Le ${this.data.type} a bien été modifié !`,
         () => {
-          this.$emit("created");
+          this.$emit("edited");
         },
         "Une erreur est survenue !",
         () => {}

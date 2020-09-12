@@ -2,7 +2,7 @@
   <v-list two-line color="transparent">
     <div>
       <v-subheader class="display-1 my-5">
-        Modules
+        Sélectionner un {{ data.type }}
         <v-spacer />
         <v-btn icon color="black" outlined @click="onCreate">
           <v-icon>mdi-plus</v-icon>
@@ -10,17 +10,17 @@
       </v-subheader>
     </div>
     <!-- <v-list-item-group v-model="selected"> -->
-    <template v-for="({ moduleId, moduleName }, i) in modules">
-      <v-list-item :key="i" @click="onClick(moduleId)">
+    <template v-for="({ id, name }, i) in items">
+      <v-list-item :key="i" @click="onClick(id)">
         <v-list-item-avatar>
           <v-icon>mdi-playlist-music</v-icon>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>{{ moduleName }}</v-list-item-title>
+          <v-list-item-title>{{ name }}</v-list-item-title>
         </v-list-item-content>
 
-        <ItemActions @update="onUpdate(i)" @delete="onDelete(moduleId)" />
+        <ItemActions @update="onUpdate(i)" @delete="onDelete(id)" />
       </v-list-item>
     </template>
     <!-- </v-list-item-group> -->
@@ -31,30 +31,45 @@
 import ItemActions from "@/components/connected/all/ItemActions";
 
 export default {
-  name: "ModuleList",
+  name: "List",
   components: { ItemActions },
+  props: {
+    data: Object,
+    // data: {
+    //   id: Number,
+    //   name: String,
+    //   type: String,
+    //   file: Boolean,
+    //   bool: Boolean,
+    // },
+  },
   data() {
     return {
       // selected: [],
-      modules: [],
+      items: [],
     };
   },
   mounted() {
-    this.fetchModules();
+    this.fetchItems();
   },
   methods: {
-    fetchModules() {
+    fetchItems() {
       this.$emit("loading");
 
       this.$request(
         "GET",
-        "/questionnary/module",
+        `/questionnary/${this.data.type}`,
         {},
         {},
         () => true,
         "",
         (response) => {
-          this.modules = response.data;
+          this.items = response.data.map((e) => {
+            return {
+              id: e[`${this.data.type}Id`],
+              name: e[`${this.data.type}Name`],
+            };
+          });
           this.$emit("loaded");
         },
         "Une erreur est survenue !",
@@ -63,20 +78,20 @@ export default {
         }
       );
     },
-    onClick(moduleId) {
-      this.$router.push(`/questionnary-manager/${moduleId}`);
+    onClick(id) {
+      this.$router.push(`/questionnary-manager/${id}`);
     },
-    onDelete(moduleId) {
+    onDelete(id) {
       this.$emit("loading");
       this.$request(
         "DELETE",
-        `/questionnary/module/${moduleId}`,
+        `/questionnary/${this.data.type}/${id}`,
         {},
         {},
         () => true,
-        "Le module a été supprimé !",
+        `Le ${this.data.type} a été supprimé !`,
         () => {
-          this.fetchModules();
+          this.fetchItems();
         },
         "Une erreur est survenue !",
         (e) => {
@@ -85,15 +100,12 @@ export default {
       );
     },
     onCreate() {
-      this.$emit("createMode", {
-        type: "module",
-      });
+      this.$emit("createMode");
     },
     onUpdate(i) {
       this.$emit("updateMode", {
-        id: this.modules[i].moduleId,
-        name: this.modules[i].moduleName,
-        type: "module",
+        id: this.items[i].id,
+        name: this.items[i].name,
       });
     },
   },

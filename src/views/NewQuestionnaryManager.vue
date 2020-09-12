@@ -7,38 +7,42 @@
     color="transparent"
   >
     <v-card min-width="50%" class="pa-5" flat color="white">
-      <ModuleList
+      <List
         v-if="state == 'select'"
+        :data="typeData"
         @createMode="switchState('create')"
         @updateMode="switchState('update', $event)"
         @loading="loading=true"
         @loaded="loading=false"
       />
-      <ModuleEditor v-else-if="state == 'update'" :data="typeData" @cancel="switchState('select')" />
-      <ModuleCreator v-else :data="typeData" @cancel="switchState('select')" />
+      <Editor v-else-if="state == 'update'" :data="typeData" @cancel="switchState('select')" />
+      <Creator v-else :data="typeData" @cancel="switchState('select')" />
     </v-card>
   </v-card>
 </template>
 
 <script>
-import ModuleList from "@/components/connected/module/ModuleList";
-import ModuleEditor from "@/components/connected/module/ModuleEditor";
-import ModuleCreator from "@/components/connected/module/ModuleCreator";
+import List from "@/components/connected/module/List";
+import Editor from "@/components/connected/module/Editor";
+import Creator from "@/components/connected/module/Creator";
 
 export default {
   name: "NewQuestionnaryManager",
-  components: { ModuleList, ModuleEditor, ModuleCreator },
+  components: { List, Editor, Creator },
   data() {
     return {
       loading: false,
       state: "select",
-      typeData: { id: -1, name: "", file: {}, bool: false },
+      typeData: { type: "module", id: -1, name: "", file: {}, bool: false },
     };
   },
   methods: {
     switchState(state, data) {
       this.state = state;
-      if (data) this.typeData = data;
+      if (data) {
+        this.typeData = data;
+        this.typeData.type = "module";
+      }
     },
   },
 };
