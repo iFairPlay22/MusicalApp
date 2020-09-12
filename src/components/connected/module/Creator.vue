@@ -5,12 +5,23 @@
         <v-btn icon color="black" outlined @click="cancel">
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
-        <span class="ml-5">Modifier un {{ data.type }}</span>
+        <span class="ml-5">Création - {{ data.type }}</span>
       </v-subheader>
     </div>
 
+    <v-checkbox v-if="data.requireBool" v-model="inputBool" label="Good answer"></v-checkbox>
+
+    <v-file-input
+      v-if="data.requireFile"
+      v-model="inputFile"
+      color="black"
+      :multiple="false"
+      accept="image/*"
+      label="File input"
+    ></v-file-input>
+
     <div class="d-flex justify-space-around align-center">
-      <v-text-field v-model="inputName" :placeholder="data.name"></v-text-field>
+      <v-text-field v-model="inputName" placeholder="Nom"></v-text-field>
       <v-card-actions>
         <v-spacer />
         <v-btn class="ml-5" icon color="green" outlined @click="create" :disabled="!isValid">
@@ -22,25 +33,28 @@
 </template>
 
 <script>
+import { storeImage } from "@/cloudinary.js";
+
 export default {
   name: "Creator",
   props: {
     data: Object,
-    // data: {
-    //   type: String,
-    //   file: Boolean,
-    //   bool: Boolean,
-    // },
   },
   data() {
     return {
       isValid: false,
       inputName: "",
+      inputFile: null,
+      inputBool: false,
     };
   },
   watch: {
     inputName(newVal) {
-      if (newVal && 0 < newVal.length && newVal.length < 15) {
+      if (
+        newVal &&
+        0 < newVal.length &&
+        newVal.length < this.data.lengthLimit
+      ) {
         this.updateFormState(true);
         return;
       }
@@ -55,13 +69,27 @@ export default {
       this.$emit("cancel");
     },
     create() {
+      return this.inputFile && this.inputFile.length != 0
+        ? storeImage(this.$request, this.inputFile, this.createItem)
+        : this.createItem("null");
+    },
+    createItem(fileName) {
+      let params = {
+        label: this.inputName,
+      };
+
+      if (this.data.requireBool) params.goodAnswer = false;
+      if (this.data.requireFile) params.imageLink = fileName;
+      if (this.data.beforeId)
+        params[`${this.data.beforeType}_id`] = this.data.beforeId;
+
       this.$request(
         "POST",
         `/questionnary/${this.data.type}`,
-        { label: this.inputName },
+        params,
         {},
         () => true,
-        `Le ${this.data.type} a été crééé !`,
+        `L'élement "${this.data.type}" a été créé !`,
         () => {
           this.$emit("created");
         },

@@ -12,6 +12,7 @@
         :data="typeData"
         @createMode="switchState('create')"
         @updateMode="switchState('update', $event)"
+        @selected="changeRoute($event)"
         @loading="loading=true"
         @loaded="loading=false"
       />
@@ -26,6 +27,51 @@ import List from "@/components/connected/module/List";
 import Editor from "@/components/connected/module/Editor";
 import Creator from "@/components/connected/module/Creator";
 
+const TYPE_HIERARCHY = ["module", "category", "level", "question", "answer"];
+const TYPE_HIERARCHY_DATA = [
+  {
+    displayName: "Modules",
+    next: "categories",
+    label: "moduleName",
+    requireBool: false,
+    requireFile: false,
+    lengthLimit: 15,
+  },
+  {
+    displayName: "Catégories",
+    next: "levels",
+    label: "categoryName",
+    requireBool: false,
+    requireFile: false,
+    lengthLimit: 15,
+  },
+  {
+    displayName: "Niveaux",
+    next: "questions",
+    label: "levelName",
+    requireBool: false,
+    requireFile: false,
+    lengthLimit: 15,
+  },
+  {
+    displayName: "Questions",
+    next: "answers",
+    label: "question",
+    requireBool: false,
+    requireFile: true,
+    lengthLimit: 75,
+  },
+  {
+    displayName: "Réponses",
+    next: null,
+    label: "answer",
+    requireBool: true,
+    requireFile: true,
+    lengthLimit: 20,
+    max: 4,
+  },
+];
+
 export default {
   name: "NewQuestionnaryManager",
   components: { List, Editor, Creator },
@@ -33,16 +79,69 @@ export default {
     return {
       loading: false,
       state: "select",
-      typeData: { type: "module", id: -1, name: "", file: {}, bool: false },
+      hierarchy: [],
+      typeData: this.initTypeData(),
     };
   },
+  watch: {
+    $route() {
+      this.onRouteChange();
+    },
+  },
+  mounted() {
+    this.onRouteChange();
+  },
   methods: {
-    switchState(state, data) {
+    changeRoute(id) {
+      this.$router.push(`${this.$route.fullPath}/${id}`);
+    },
+    onRouteChange() {
+      this.hierarchy = Object.entries(this.$route.params)
+        .map((l) => {
+          return {
+            i: TYPE_HIERARCHY.indexOf(l[0].slice(0, -2)),
+            id: l[1],
+          };
+        })
+        .sort((a, b) => a.i > b.i);
+
+      this.typeData = this.initTypeData();
+
+      if (this.hierarchy.length == 0) return;
+
+      const lastEl = this.hierarchy[this.hierarchy.length - 1];
+      this.typeData.type = TYPE_HIERARCHY[lastEl.i + 1];
+      this.typeData.requireFile = TYPE_HIERARCHY_DATA[lastEl.i + 1].requireFile;
+      this.typeData.requireBool = TYPE_HIERARCHY_DATA[lastEl.i + 1].requireBool;
+      this.typeData.lengthLimit = TYPE_HIERARCHY_DATA[lastEl.i + 1].lengthLimit;
+      this.typeData.labelName = TYPE_HIERARCHY_DATA[lastEl.i + 1].label;
+      this.typeData.displayName = TYPE_HIERARCHY_DATA[lastEl.i + 1].displayName;
+      this.typeData.beforeType = TYPE_HIERARCHY[lastEl.i];
+      this.typeData.nextTypeName = TYPE_HIERARCHY_DATA[lastEl.i].next;
+      this.typeData.beforeId = lastEl.id;
+
+      console.log(this.typeData);
+    },
+    initTypeData() {
+      return {
+        type: TYPE_HIERARCHY[0],
+        beforeType: null,
+        nextTypeName: TYPE_HIERARCHY_DATA[0].next,
+        labelName: TYPE_HIERARCHY_DATA[0].label,
+        displayName: TYPE_HIERARCHY_DATA[0].displayName,
+        id: null,
+        beforeId: null,
+        name: null,
+        file: null,
+        bool: null,
+      };
+    },
+    switchState(state, { id, name, bool, file } = {}) {
       this.state = state;
-      if (data) {
-        this.typeData = data;
-        this.typeData.type = "module";
-      }
+      if (id) this.typeData.id = id;
+      if (name) this.typeData.name = name;
+      if (bool) this.typeData.bool = bool;
+      if (file) this.typeData.file = file;
     },
   },
 };
