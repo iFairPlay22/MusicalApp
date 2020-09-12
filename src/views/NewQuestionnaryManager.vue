@@ -15,7 +15,7 @@
         @loaded="loading=false"
       />
       <ModuleEditor v-else-if="state == 'update'" :data="typeData" @cancel="switchState('select')" />
-      <ModuleCreator v-else @cancel="switchState('select')" />
+      <ModuleCreator v-else :data="typeData" @cancel="switchState('select')" />
     </v-card>
   </v-card>
 </template>

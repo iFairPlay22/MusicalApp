@@ -85,7 +85,9 @@ export default {
       );
     },
     onCreate() {
-      this.$emit("createMode");
+      this.$emit("createMode", {
+        type: "module",
+      });
     },
     onUpdate(i) {
       this.$emit("updateMode", {

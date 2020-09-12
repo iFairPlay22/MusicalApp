@@ -5,12 +5,12 @@
         <v-btn icon color="black" outlined @click="cancel">
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
-        <span class="ml-5">Créer un module</span>
+        <span class="ml-5">Modifier un {{ data.type }}</span>
       </v-subheader>
     </div>
 
     <div class="d-flex justify-space-around align-center">
-      <v-text-field v-model="inputName" placeholder="Nom du module"></v-text-field>
+      <v-text-field v-model="inputName" :placeholder="data.name"></v-text-field>
       <v-card-actions>
         <v-spacer />
         <v-btn class="ml-5" icon color="green" outlined @click="createModule" :disabled="!isValid">
@@ -24,6 +24,14 @@
 <script>
 export default {
   name: "ModuleCreator",
+  props: {
+    data: Object,
+    // data: {
+    //   type: String,
+    //   file: Boolean,
+    //   bool: Boolean,
+    // },
+  },
   data() {
     return {
       isValid: false,
@@ -49,11 +57,11 @@ export default {
     createModule() {
       this.$request(
         "POST",
-        "/questionnary/module",
+        `/questionnary/${this.data.type}`,
         { label: this.inputName },
         {},
         () => true,
-        "Le module a été crééé !",
+        `Le ${this.data.type} a été crééé !`,
         () => {
           this.$emit("created");
         },
