@@ -5,15 +5,15 @@
         <v-btn icon color="black" outlined @click="cancel">
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
-        <span class="ml-5">Modifier un module</span>
+        <span class="ml-5">Modifier un {{ data.type }}</span>
       </v-subheader>
     </div>
 
     <div class="d-flex justify-space-around align-center">
-      <v-text-field v-model="inputName" placeholder="Nom du module"></v-text-field>
+      <v-text-field v-model="inputName" :placeholder="data.name"></v-text-field>
       <v-card-actions>
         <v-spacer />
-        <v-btn class="ml-5" icon color="green" outlined @click="updateModule" :disabled="!isValid">
+        <v-btn class="ml-5" icon color="green" outlined @click="update" :disabled="!isValid">
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </v-card-actions>
@@ -25,7 +25,14 @@
 export default {
   name: "ModuleEditor",
   props: {
-    data: { id: Number, name: String },
+    data: Object,
+    // data: {
+    //   id: Number,
+    //   name: String,
+    //   type: String,
+    //   file: Boolean,
+    //   bool: Boolean,
+    // },
   },
   data() {
     return {
@@ -54,16 +61,16 @@ export default {
     cancel() {
       this.$emit("cancel");
     },
-    updateModule() {
+    update() {
       this.$request(
         "PUT",
-        `/questionnary/module/${this.data.id}`,
+        `/questionnary/${this.data.type}/${this.data.id}`,
         {
           label: this.inputName,
         },
         {},
         () => true,
-        "Le module a bien été modifié !",
+        `Le ${this.data.type} a bien été modifié !`,
         () => {
           this.$emit("edited");
         },
