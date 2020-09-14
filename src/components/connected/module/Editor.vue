@@ -5,7 +5,7 @@
         <v-btn icon color="black" outlined @click="cancel">
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
-        <span class="ml-5">Edition - {{ data.type }}</span>
+        <span class="ml-5 text-no-wrap">Editer "{{ data.displayName }}"</span>
       </v-subheader>
     </div>
     <v-form>
@@ -90,10 +90,21 @@ export default {
       this.updateFormState(false);
     },
     inputBool(newVal) {
-      if (newVal != this.data.bool) this.updateFormState(true);
+      if (
+        newVal != this.data.bool &&
+        this.inputName &&
+        0 < this.inputName.length &&
+        this.inputName.length < this.data.lengthLimit
+      )
+        this.updateFormState(true);
     },
     inputFile() {
-      this.updateFormState(true);
+      if (
+        this.inputName &&
+        0 < this.inputName.length &&
+        this.inputName.length < this.data.lengthLimit
+      )
+        this.updateFormState(true);
     },
   },
   methods: {

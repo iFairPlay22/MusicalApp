@@ -5,7 +5,7 @@
         <v-btn icon color="black" outlined @click="cancel">
           <v-icon>mdi-arrow-left</v-icon>
         </v-btn>
-        <span class="ml-5">Création - {{ data.type }}</span>
+        <span class="ml-5">Créer {{ data.displayName }}</span>
       </v-subheader>
     </div>
 
@@ -53,15 +53,7 @@ export default {
       if (
         newVal &&
         0 < newVal.length &&
-        newVal.length < this.data.lengthLimit &&
-        (!this.data.requireFile ||
-          (this.data.requireFile &&
-            this.inputFile &&
-            this.inputFile.length != 0)) &&
-        (!this.data.requireBool ||
-          (this.data.requireBool &&
-            this.inputBool !== null &&
-            this.inputBool != this.data.bool))
+        newVal.length < this.data.lengthLimit
       ) {
         this.updateFormState(true);
         return;

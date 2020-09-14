@@ -28,7 +28,7 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>{{ name }}</v-list-item-title>
+          <v-list-item-title class="text-wrap">{{ name }}</v-list-item-title>
         </v-list-item-content>
 
         <ItemActions @update="onUpdate(i)" @delete="onDelete(i, id)" />
@@ -121,7 +121,7 @@ export default {
       );
     },
     onClick(id) {
-      this.$emit("selected", id);
+      if (this.data.nextTypeName) this.$emit("selected", id);
     },
     onDelete(i, id) {
       deleteImage(this.$request, this.items[i].file, () => this.deleteItem(id));
@@ -157,7 +157,7 @@ export default {
       });
     },
     goBack() {
-      this.$router.go(1);
+      this.$router.go(-1);
     },
   },
 };
