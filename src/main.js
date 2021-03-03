@@ -71,7 +71,7 @@ Vue.prototype.$request = function(
         }
       : {},
     body:
-      Object.keys(data).length === 0 && data.constructor === Object
+      (Object.keys(data).length === 0 && data.constructor === Object)
         ? null
         : data,
   })
