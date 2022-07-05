@@ -1,24 +1,10 @@
-# musical-app
+# Musical App
 
-## Project setup
-```
-npm install
-```
+## Contexte
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Application permettant d'étudier les différentes notions musicales, à partir de QCM, strcuturés en diverses catégories.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Projet
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Application mobile développée en Flutter.
+Application web développée en VueJs.
